@@ -1,4 +1,4 @@
-# ?? TarkaDyS - Professional Control System Simulation Platform
+# TarkaDyS - Professional Control System Simulation Platform
 
 [![.NET 8](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
 [![Windows Forms](https://img.shields.io/badge/UI-Windows%20Forms-blue.svg)](https://docs.microsoft.com/en-us/dotnet/desktop/winforms/)
@@ -11,28 +11,28 @@
 
 ---
 
-## ?? **Key Features**
+## Key Features
 
-### ??? **Multi-Model Architecture**
+### Multi-Model Architecture
 - **Single Instance Management** - Prevents duplicate model forms
 - **Extensible Design** - Easy addition of new process models
 - **Professional Navigation** - Organized models menu with keyboard shortcuts
 - **Intelligent Form Management** - Automatic cleanup and resource management
 
-### ??? **Professional PID Controller**
+### Professional PID Controller
 - **3 Advanced Algorithms**: BasicPID, I-PD, PI-D
 - **Anti-Reset Windup Protection** - Critical for real control systems
 - **Bumpless Auto/Manual Transfer** - Seamless mode switching
 - **Real-Time Algorithm Switching** - Change PID type during simulation
 - **Configurable Limits** - SP/OP range validation with industrial relevance
 
-### ?? **Real-Time Visualization**
+### Real-Time Visualization
 - **High-Performance Plotting** - 50Hz update rate with zero lag
 - **Customizable Plot Controls** - Configurable X/Y axis ranges
 - **Auto-Scaling** - Dynamic axis adjustment
 - **Multiple Data Series** - Setpoint, PV, MV, and Error tracking
 
-### ?? **Industrial-Grade Features**
+### Industrial-Grade Features
 - **Steady-State Initialization** - Starts at 50% for bumpless operation
 - **Parameter Validation** - Real-time validation prevents invalid combinations
 - **Setpoint Tracking** - SP follows PV in Manual mode
@@ -40,9 +40,9 @@
 
 ---
 
-## ??? **System Architecture**
+## System Architecture
 
-### **Multi-Layered Design**
+### Multi-Layered Design
 
 ```
 +=========================================+
@@ -85,7 +85,7 @@
 +=========================================+
 ```
 
-### **File Structure**
+### File Structure
 ```
 TarkaDyS/
 ??? Controllers/
@@ -103,9 +103,9 @@ TarkaDyS/
 
 ---
 
-## ?? **Data Flow Architecture**
+## Data Flow Architecture
 
-### **Real-Time Control Loop**
+### Real-Time Control Loop
 
 ```mermaid
 graph TD
@@ -128,7 +128,7 @@ graph TD
     style F fill:#fce4ec
 ```
 
-### **Data Processing Pipeline**
+### Data Processing Pipeline
 
 1. **Input Stage**
    - User parameter changes (Kp, Ki, Kd)
@@ -156,11 +156,11 @@ graph TD
 
 ---
 
-## ?? **Control & Process Algorithms**
+## Control & Process Algorithms
 
-### **1. PID Controller Algorithms**
+### 1. PID Controller Algorithms
 
-#### **?? BasicPID (Traditional)**
+#### BasicPID (Traditional)
 ```
 Output = Kp × e + Ki × ?e dt + Kd × (de/dt)
 
@@ -173,7 +173,7 @@ Where:
 
 **Use Case**: General purpose control applications
 
-#### **?? I-PD (Integral on Error, PD on Measurement)**
+#### I-PD (Integral on Error, PD on Measurement)
 ```
 Output = Kp × (SP - PV) + Ki × ?e dt - Kd × (dPV/dt)
 
@@ -185,7 +185,7 @@ Benefits:
 
 **Use Case**: Setpoint tracking with minimal overshoot
 
-#### **?? PI-D (PI on Error, D on Measurement)**
+#### PI-D (PI on Error, D on Measurement)
 ```
 Output = Kp × e + Ki × ?e dt - Kd × (dPV/dt)
 
@@ -197,7 +197,7 @@ Benefits:
 
 **Use Case**: Process control with moderate setpoint changes
 
-### **2. Anti-Reset Windup Protection**
+### 2. Anti-Reset Windup Protection
 
 ```csharp
 // Automatic integral clamping
@@ -207,9 +207,9 @@ else if (integralOutput < outputMin)
     integralSum = outputMin / Math.Max(Ki, 1e-6);
 ```
 
-### **3. First Order Process Model**
+### 3. First Order Process Model
 
-#### **Transfer Function**
+#### Transfer Function
 ```
 G(s) = K × e^(-?s) / (?s + 1)
 
@@ -220,7 +220,7 @@ Where:
 • s = Laplace variable
 ```
 
-#### **Differential Equation Implementation**
+#### Differential Equation Implementation
 ```csharp
 // Euler integration method
 double processDerivative = (input - output) / timeConstant;
@@ -231,7 +231,7 @@ deadTimeBuffer[currentIndex] = output;
 delayedOutput = deadTimeBuffer[(currentIndex - deadTimeSteps) % bufferSize];
 ```
 
-### **4. Simulation Timing Architecture**
+### 4. Simulation Timing Architecture
 
 ```csharp
 // Multi-rate simulation
@@ -242,14 +242,14 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Installation & Setup**
+## Installation & Setup
 
-### **Prerequisites**
+### Prerequisites
 - **.NET 8.0 SDK** or later
 - **Windows OS** (Windows 10/11 recommended)
 - **Visual Studio 2022** or **VS Code** with C# extension
 
-### **Quick Start**
+### Quick Start
 
 1. **Clone Repository**
    ```bash
@@ -272,16 +272,16 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
    dotnet run --project TarkaDyS
    ```
 
-### **Dependencies**
+### Dependencies
 - **OxyPlot.WindowsForms** (2.1.2+) - Real-time plotting
 - **System.Windows.Forms** - UI framework
 - **.NET 8.0** - Runtime framework
 
 ---
 
-## ?? **Usage Guide**
+## Usage Guide
 
-### **?? Quick Start Simulation**
+### Quick Start Simulation
 
 1. **Launch Application**
    - Main window opens with welcome screen
@@ -309,9 +309,9 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
    - Real-time plotting begins
    - Adjust parameters during simulation
 
-### **??? Advanced Features**
+### Advanced Features
 
-#### **Algorithm Comparison**
+#### Algorithm Comparison
 ```
 1. Set baseline parameters
 2. Run with BasicPID ? observe response
@@ -319,7 +319,7 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 4. Switch to PI-D ? analyze disturbance rejection
 ```
 
-#### **Tuning Methodology**
+#### Tuning Methodology
 ```
 1. Start with Kd = 0 (PI control)
 2. Increase Kp until oscillation
@@ -328,7 +328,7 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 5. Use I-PD for setpoint changes
 ```
 
-#### **Professional Tips**
+#### Professional Tips
 - **Setpoint Changes**: Use I-PD algorithm
 - **Load Disturbances**: Use BasicPID or PI-D
 - **Noise Issues**: Reduce Kd gain
@@ -337,9 +337,9 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Performance Specifications**
+## Performance Specifications
 
-### **Real-Time Performance**
+### Real-Time Performance
 | Metric | Value | Notes |
 |--------|--------|--------|
 | **Control Loop Rate** | 10 Hz | 100ms timer interval |
@@ -349,7 +349,7 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 | **CPU Usage** | < 5% | On modern systems |
 | **Simulation Accuracy** | ±0.1% | Matches theory |
 
-### **Simulation Capabilities**
+### Simulation Capabilities
 - **Time Scaling**: 0.1x to 5.0x real-time
 - **Parameter Range**: Industry-standard values
 - **Plot Duration**: Up to 1 hour (3600 seconds)
@@ -358,23 +358,23 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Educational Value**
+## Educational Value
 
-### **Control System Concepts**
+### Control System Concepts
 - **PID Tuning Methods** - Hands-on experience
 - **Algorithm Comparison** - Side-by-side analysis
 - **Process Dynamics** - First-order system behavior
 - **Dead Time Effects** - Real-world process delays
 - **Disturbance Rejection** - System robustness testing
 
-### **Industrial Relevance**
+### Industrial Relevance
 - **Professional UI** - Similar to industrial HMI
 - **Anti-Windup Protection** - Critical for real systems
 - **Bumpless Transfers** - Standard industry practice
 - **Parameter Limits** - Operating envelope protection
 - **Multiple Algorithms** - Different application needs
 
-### **Academic Applications**
+### Academic Applications
 - **Control Engineering Courses** - Practical demonstrations
 - **Research Projects** - Algorithm development platform
 - **Student Projects** - Comprehensive simulation environment
@@ -382,9 +382,9 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Extending the Platform**
+## Extending the Platform
 
-### **Adding New Process Models**
+### Adding New Process Models
 
 1. **Create Process Model Class**
    ```csharp
@@ -421,7 +421,7 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
    }
    ```
 
-### **Model Types Ready for Implementation**
+### Model Types Ready for Implementation
 - ? **First Order Process with PID** - *Implemented*
 - ?? **Second Order Process with PID** - *Framework ready*
 - ?? **Tank Level Control with PID** - *Framework ready*
@@ -431,23 +431,23 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Technical Documentation**
+## Technical Documentation
 
-### **Code Quality**
+### Code Quality
 - **Comprehensive Comments** - Self-documenting code
 - **Error Handling** - Robust exception management  
 - **Thread Safety** - Proper synchronization
 - **Resource Management** - Automatic cleanup
 - **Performance Optimization** - Efficient algorithms
 
-### **Testing Coverage**
+### Testing Coverage
 - **Build Verification** - Zero compilation errors
 - **Functional Testing** - All features validated
 - **Performance Testing** - Extended run stability
 - **UI Testing** - Responsive interface
 - **Memory Testing** - No memory leaks
 
-### **Industry Standards**
+### Industry Standards
 - **Naming Conventions** - Microsoft C# guidelines
 - **Code Structure** - SOLID principles
 - **Documentation** - XML comments throughout
@@ -455,16 +455,16 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **Contributing**
+## Contributing
 
-### **Development Workflow**
+### Development Workflow
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/new-model`)
 3. Implement changes with tests
 4. Update documentation
 5. Submit pull request
 
-### **Contribution Areas**
+### Contribution Areas
 - **New Process Models** - Extend simulation capabilities
 - **Control Algorithms** - Advanced PID variants
 - **UI Enhancements** - Improved user experience
@@ -473,19 +473,19 @@ Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
 
 ---
 
-## ?? **License**
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-### **Academic Use**
+### Academic Use
 Free for educational institutions and research purposes.
 
-### **Commercial Use** 
+### Commercial Use 
 Permitted under MIT license terms with attribution.
 
 ---
 
-## ?? **Acknowledgments**
+## Acknowledgments
 
 - **Original VB PID Simulator**: [shankarananth/VB_PID_Simulator](https://github.com/shankarananth/VB_PID_Simulator)
 - **OxyPlot Library**: High-performance plotting framework
@@ -494,7 +494,7 @@ Permitted under MIT license terms with attribution.
 
 ---
 
-## ?? **Support & Contact**
+## Support & Contact
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/shankarananth/TarkaDyS/issues)
 - **Discussions**: [Community discussions](https://github.com/shankarananth/TarkaDyS/discussions)
@@ -502,13 +502,13 @@ Permitted under MIT license terms with attribution.
 
 ---
 
-## ?? **Project Status**
+## Project Status
 
-**Current Version**: 2.0.0 (Professional Edition)
-**Status**: ? **Production Ready**
+**Current Version**: 2.0.0 (Professional Edition)  
+**Status**: ? **Production Ready**  
 **Last Updated**: August 2025
 
-### **Recent Updates**
+### Recent Updates
 - ? Multi-model architecture implementation
 - ? Professional PID controller with 3 algorithms
 - ? Enhanced UI with parameter validation
@@ -516,7 +516,7 @@ Permitted under MIT license terms with attribution.
 - ? Single instance management system
 - ? Comprehensive documentation and user guides
 
-### **Upcoming Features**
+### Upcoming Features
 - ?? Second-order process models
 - ?? Tank level control simulation
 - ??? Temperature control processes
