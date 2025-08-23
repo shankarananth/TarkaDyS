@@ -1,177 +1,171 @@
+/*
+ * File: MainForm.Designer.cs
+ * Author: Shankar Ananth Asokan
+ * Purpose: Main form designer with Models menu
+ * Date Created: 2025-08-23
+ * Date Modified: 2025-08-23
+ */
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace TarkaDyS
 {
     partial class MainForm
     {
         /// <summary>
-        ///  Required designer variable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private MenuStrip menuStrip1;
-        private StatusStrip statusStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem newToolStripMenuItem;
-        private ToolStripMenuItem pidProcessToolStripMenuItem;
-        private ToolStripMenuItem tankLevelProcessToolStripMenuItem;
-        private ToolStripMenuItem temperatureProcessToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem exitToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem aboutToolStripMenuItem;
-        private ToolStripStatusLabel statusLabel;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        /// Menu and UI components
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem modelsToolStripMenuItem;
+        private ToolStripMenuItem menuFirstOrderPid;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem menuAbout;
+        private Panel mainPanel;
+        private Label lblWelcome;
+        private Label lblInstructions;
 
         #region Windows Form Designer generated code
 
         /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pidProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tankLevelProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.temperatureProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.menuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            menuStrip = new MenuStrip();
+            modelsToolStripMenuItem = new ToolStripMenuItem();
+            menuFirstOrderPid = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            menuAbout = new ToolStripMenuItem();
+            mainPanel = new Panel();
+            lblWelcome = new Label();
+            lblInstructions = new Label();
+            menuStrip.SuspendLayout();
+            mainPanel.SuspendLayout();
+            SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1200, 28);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip.ImageScalingSize = new Size(20, 20);
+            menuStrip.Items.AddRange(new ToolStripItem[] { modelsToolStripMenuItem, menuAbout });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Padding = new Padding(10, 4, 0, 4);
+            menuStrip.Size = new Size(1250, 40);
+            menuStrip.TabIndex = 0;
             // 
-            // fileToolStripMenuItem
+            // modelsToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
-            this.fileToolStripMenuItem.Text = "&File";
+            modelsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { menuFirstOrderPid, toolStripSeparator1 });
+            modelsToolStripMenuItem.Font = new Font("Segoe UI", 10F);
+            modelsToolStripMenuItem.Name = "modelsToolStripMenuItem";
+            modelsToolStripMenuItem.Size = new Size(93, 32);
+            modelsToolStripMenuItem.Text = "&Models";
             // 
-            // newToolStripMenuItem
+            // menuFirstOrderPid
             // 
-            this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pidProcessToolStripMenuItem,
-            this.tankLevelProcessToolStripMenuItem,
-            this.temperatureProcessToolStripMenuItem});
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
-            this.newToolStripMenuItem.Text = "&New";
-            // 
-            // pidProcessToolStripMenuItem
-            // 
-            this.pidProcessToolStripMenuItem.Name = "pidProcessToolStripMenuItem";
-            this.pidProcessToolStripMenuItem.Size = new System.Drawing.Size(320, 26);
-            this.pidProcessToolStripMenuItem.Text = "&First Order Process with PID";
-            this.pidProcessToolStripMenuItem.Click += new System.EventHandler(this.NewPidProcess_Click);
-            // 
-            // tankLevelProcessToolStripMenuItem
-            // 
-            this.tankLevelProcessToolStripMenuItem.Name = "tankLevelProcessToolStripMenuItem";
-            this.tankLevelProcessToolStripMenuItem.Size = new System.Drawing.Size(320, 26);
-            this.tankLevelProcessToolStripMenuItem.Text = "&Tank Level Process with PID";
-            this.tankLevelProcessToolStripMenuItem.Click += new System.EventHandler(this.NewLevelProcess_Click);
-            // 
-            // temperatureProcessToolStripMenuItem
-            // 
-            this.temperatureProcessToolStripMenuItem.Name = "temperatureProcessToolStripMenuItem";
-            this.temperatureProcessToolStripMenuItem.Size = new System.Drawing.Size(320, 26);
-            this.temperatureProcessToolStripMenuItem.Text = "T&emperature Process with PID";
-            this.temperatureProcessToolStripMenuItem.Click += new System.EventHandler(this.NewTemperatureProcess_Click);
+            menuFirstOrderPid.Name = "menuFirstOrderPid";
+            menuFirstOrderPid.ShortcutKeys = Keys.Control | Keys.D1;
+            menuFirstOrderPid.Size = new Size(422, 36);
+            menuFirstOrderPid.Text = "&First Order Process with PID";
+            menuFirstOrderPid.Click += MenuFirstOrderPid_Click;
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(419, 6);
             // 
-            // exitToolStripMenuItem
+            // menuAbout
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(122, 26);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
+            menuAbout.Name = "menuAbout";
+            menuAbout.Size = new Size(78, 32);
+            menuAbout.Text = "&About";
+            menuAbout.Click += MenuAbout_Click;
             // 
-            // helpToolStripMenuItem
+            // mainPanel
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
-            this.helpToolStripMenuItem.Text = "&Help";
+            mainPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mainPanel.BackColor = Color.WhiteSmoke;
+            mainPanel.BorderStyle = BorderStyle.FixedSingle;
+            mainPanel.Controls.Add(lblWelcome);
+            mainPanel.Controls.Add(lblInstructions);
+            mainPanel.Location = new Point(15, 50);
+            mainPanel.Margin = new Padding(4, 4, 4, 4);
+            mainPanel.Name = "mainPanel";
+            mainPanel.Size = new Size(1220, 684);
+            mainPanel.TabIndex = 1;
             // 
-            // aboutToolStripMenuItem
+            // lblWelcome
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
-            this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.About_Click);
+            lblWelcome.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblWelcome.ForeColor = Color.DarkBlue;
+            lblWelcome.Location = new Point(38, 50);
+            lblWelcome.Margin = new Padding(4, 0, 4, 0);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(1125, 62);
+            lblWelcome.TabIndex = 0;
+            lblWelcome.Text = "TarkaDyS - Process Dynamic Simulator";
+            lblWelcome.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // statusStrip1
+            // lblInstructions
             // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 725);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1200, 26);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // statusLabel
-            // 
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(49, 20);
-            this.statusLabel.Text = "Ready";
+            lblInstructions.Font = new Font("Segoe UI", 12F);
+            lblInstructions.ForeColor = Color.DarkSlateGray;
+            lblInstructions.Location = new Point(38, 150);
+            lblInstructions.Margin = new Padding(4, 0, 4, 0);
+            lblInstructions.Name = "lblInstructions";
+            lblInstructions.Size = new Size(1125, 375);
+            lblInstructions.TabIndex = 1;
+            lblInstructions.Text = resources.GetString("lblInstructions.Text");
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 751);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.menuStrip1);
-            this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
-            this.Text = "TarkaDyS - Process Dynamic Simulation Software";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1250, 750);
+            Controls.Add(mainPanel);
+            Controls.Add(menuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip;
+            Margin = new Padding(4, 4, 4, 4);
+            MinimumSize = new Size(994, 611);
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "TarkaDyS - Process Dynamic Simulator";
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
+            mainPanel.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
+        }
 
+        private void MenuAbout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "TarkaDyS - Professional PID Control System Simulation\n\n" +
+                "Author: Shankar Ananth Asokan\n" +
+                "Version: Professional Edition\n" +
+                "Date: 2025-08-23\n\n" +
+                "Features:\n" +
+                "• Multiple PID algorithms (BasicPID, I-PD, PI-D)\n" +
+                "• Professional control system features\n" +
+                "• Real-time parameter tuning\n" +
+                "• Single instance model management\n" +
+                "• Anti-windup protection\n" +
+                "• Configurable limits and plot controls\n\n" +
+                "Perfect for control system education, research, and industrial training!",
+                "About TarkaDyS",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         #endregion
