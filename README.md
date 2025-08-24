@@ -3,14 +3,14 @@
 **A Professional PID Control System Simulation Platform**
 
 *Author: Shankar Ananth Asokan*  
-*Version: 2.0*  
+*Version: 0.2*  
 *Date: 24-Aug-2025*
 
 ---
 
 ## Overview
 
-TarkaDyS (Target Dynamic Systems) is a comprehensive PID control simulation platform designed for educational and professional use. It provides realistic process control scenarios with industrial-quality PID controllers featuring multiple algorithms and advanced capabilities.
+In Sanskrit, the word "tarka" (तर्क) means reasoning. TarkaDyS (**Tarka** **Dy**namic **S**ystems) is a comprehensive PID control simulation platform designed for educational and professional use. It provides realistic process control scenarios with industrial-quality PID controllers featuring multiple algorithms and advanced capabilities.
 
 ## Key Features
 
@@ -24,24 +24,11 @@ TarkaDyS (Target Dynamic Systems) is a comprehensive PID control simulation plat
 - **Manual/Auto Modes**: Seamless bumpless transfers
 - **Output Limiting**: Configurable min/max constraints
 
-### Realistic Process Simulation
+### First Order Tunable Process Model
 - **First-Order Process Model**: Transfer function K×e^(-Td×s)/(Tau×s+1)
 - **Dead Time Support**: Configurable transport delays
 - **Dynamic Random Disturbance**: Realistic process noise
 - **Configurable Parameters**: Gain, time constant, dead time
-
-### Professional User Interface
-- **Real-Time Plotting**: Multi-variable trend display
-- **HD Screen Optimized**: 1600×768 layout
-- **Parameter Tuning**: Live adjustment of all parameters
-- **Simulation Controls**: Start/Stop/Reset functionality
-- **Algorithm Switching**: Real-time algorithm comparison
-
-### Advanced Capabilities
-- **Splash Screen**: Professional startup with logo support
-- **Debug Output**: Comprehensive algorithm verification
-- **Single Instance Management**: Prevents duplicate forms
-- **Resource Management**: Automatic asset loading
 
 ---
 
@@ -61,12 +48,6 @@ TarkaDyS (Target Dynamic Systems) is a comprehensive PID control simulation plat
 2. Open `TarkaDyS.sln` in Visual Studio 2022
 3. Build the solution (Ctrl+Shift+B)
 4. Run the application (F5)
-
-### Adding Your Logo
-1. Create a `Resources` folder in the build output directory
-2. Place your logo as `TarkaDyS_Logo.png` (300×200 recommended)
-3. Optionally add `TarkaDyS_Icon.ico` for window icons
-4. The application will automatically detect and use these assets
 
 ---
 
@@ -88,24 +69,6 @@ TarkaDyS (Target Dynamic Systems) is a comprehensive PID control simulation plat
 | **BasicPID** | Fast, aggressive | Present | Present | Infrequent setpoint changes |
 | **I-PD** | Smooth, gradual | Eliminated | Eliminated | Frequent setpoint changes |
 | **PI-D** | Compromise | Present | Eliminated | General purpose control |
-
-### Testing I-PD Kick Elimination
-1. Start with BasicPID algorithm
-2. Change setpoint 50% → 70% (observe immediate MV jump = kick)
-3. Switch to I-PD algorithm  
-4. Change setpoint 70% → 40% (observe smooth response = no kick)
-5. Check debug output for algorithm confirmation
-
-### Dynamic Disturbance Model
-- **Disturbance Factor**: 0-100% from UI
-- **Random Amplitude**: Factor × Random(0-1) each cycle
-- **Bipolar Effect**: Can add or subtract from PV
-- **Realistic Behavior**: Simulates industrial process noise
-
-**Examples:**
-- **5% Disturbance**: Light process variations
-- **20% Disturbance**: Moderate noise (challenging)
-- **50% Disturbance**: Heavy noise (extreme conditions)
 
 ---
 
@@ -137,7 +100,6 @@ TarkaDyS/
 - Velocity-form PID implementation
 - Three algorithm types with kick elimination
 - Bumpless manual-to-auto transfers
-- Industrial-standard features
 
 #### FirstOrderProcess.cs
 - First-order plus dead time model
@@ -176,96 +138,6 @@ The PID controller uses velocity form algorithms for superior performance:
 ΔOutput = Kp×(e[n]-e[n-1]) + Ki×e[n]×Δt + Kd×(PV[n-2]-2×PV[n-1]+PV[n])/Δt
 ```
 
-### Benefits of Velocity Form
-- **Inherently Bumpless**: No integral tracking required
-- **Numerical Stability**: Better for discrete implementation  
-- **No Windup Issues**: Delta output prevents integration buildup
-- **Industrial Standard**: Used in modern DCS/PLC systems
-
-### Adding New Models
-1. Create new process model in `Models/` folder
-2. Create corresponding form in `Forms/` folder
-3. Add menu item to `MainForm.cs`
-4. Implement single instance management
-5. Update documentation
-
----
-
-## Testing and Validation
-
-### PID Tuning Verification
-- **Default Values**: Kp=0.5, Ki=0.1, Kd=0.0 (conservative)
-- **Stability Test**: Step response should be smooth
-- **Disturbance Rejection**: Test with various noise levels
-- **Setpoint Tracking**: Verify smooth response
-
-### Algorithm Switching Test
-1. Start simulation in steady state
-2. Change algorithm via dropdown
-3. Verify debug output confirms switch
-4. Test setpoint response differences
-5. Confirm no output bumps during switch
-
-### Manual/Auto Transfer Test
-1. Start in Auto mode
-2. Switch to Manual (output tracks)
-3. Change manual output value
-4. Switch back to Auto (bumpless)
-5. Verify no output discontinuity
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**Logo Not Displaying**
-- Check `Resources/TarkaDyS_Logo.png` exists in build output
-- Verify file is copied to `bin/Debug/net8.0-windows/Resources/`
-- Review debug output for file loading messages
-
-**PID Not Responding**
-- Verify process parameters are reasonable (Tau > 0.1)
-- Check PID gains are not zero
-- Ensure simulation is running (START clicked)
-- Review integral limits and output limits
-
-**Form Layout Issues**
-- Application optimized for 1366×768 or higher
-- Check display scaling settings in Windows
-- Form uses fixed dialog style for consistent layout
-
-**Algorithm Switching Not Working**
-- Check debug output for algorithm change messages
-- Verify dropdown selection is changing
-- Reset controller after algorithm change
-
-### Debug Output
-The application provides comprehensive debug output:
-```
-PID Algorithm changed: BasicPID → I_PD
-I-PD: ΔI=0.25 ΔP=-1.20 ΔD=0.00 = -0.95
-Disturbance applied: 10.0% × 0.743 × +1 = 0.074
-```
-
----
-
-## Contributing
-
-### Development Guidelines
-1. Follow existing code style and patterns
-2. Add comprehensive XML documentation
-3. Include debug output for verification
-4. Test on different screen resolutions
-5. Update README.md for new features
-
-### Submission Process
-1. Fork the repository
-2. Create feature branch
-3. Implement changes with tests
-4. Update documentation
-5. Submit pull request with detailed description
-
 ---
 
 ## License
@@ -277,17 +149,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 - **Author**: Shankar Ananth Asokan
-- **Email**: [Your contact email]
 - **GitHub**: https://github.com/shankarananth/TarkaDyS
 - **Issues**: Report bugs via GitHub Issues
 
 ---
 
-## Acknowledgments
-
-- OxyPlot team for excellent plotting library
-- Industrial control engineers for algorithm insights
-
----
-
-*TarkaDyS - Bringing professional process control simulation to education and industry*
+*TarkaDyS - Bringing professional Dynamic Process simulation with Control for Education*
