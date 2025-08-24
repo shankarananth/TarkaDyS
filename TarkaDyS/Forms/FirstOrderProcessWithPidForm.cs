@@ -105,10 +105,13 @@ namespace TarkaDyS.Forms
             _pidController.Initialize(50.0, 50.0);
             _pidController.Setpoint = 50.0;
             
-            // Set default PID parameters (conservative tuning)
-            _pidController.Kp = 1.0;
-            _pidController.Ki = 0.1;
-            _pidController.Kd = 0.05;
+            // CONSERVATIVE PID tuning as requested: Kp=0.5, Ki=0.1, Kd=0.0
+            _pidController.Kp = 0.5;        // Conservative proportional gain
+            _pidController.Ki = 0.1;        // Conservative integral gain  
+            _pidController.Kd = 0.0;        // No derivative action
+            
+            // Ensure default algorithm is set
+            _pidController.Algorithm = PidAlgorithm.BasicPID;
             
             // Set default process parameters
             _process.ProcessGain = 1.0;
@@ -119,6 +122,13 @@ namespace TarkaDyS.Forms
             _pidController.SetOutputLimits(_outputLow, _outputHigh);
             
             _currentTime = 0.0;
+            
+            // Verify initialization
+            System.Diagnostics.Debug.WriteLine($"=== VELOCITY FORM INITIALIZATION COMPLETE ===");
+            System.Diagnostics.Debug.WriteLine($"PID Algorithm: {_pidController.Algorithm}");
+            System.Diagnostics.Debug.WriteLine($"CONSERVATIVE PID Tuning - Kp: {_pidController.Kp:F1}, Ki: {_pidController.Ki:F1}, Kd: {_pidController.Kd:F1}");
+            System.Diagnostics.Debug.WriteLine($"Process Model - K: {_process.ProcessGain:F1}, Tau: {_process.TimeConstant:F1}s, Td: {_process.DeadTime:F1}s");
+            System.Diagnostics.Debug.WriteLine($"SP: {_pidController.Setpoint:F1}%, PV: {_process.Output:F1}%, MV: {_pidController.Output:F1}%");
         }
 
         private void InitializePlot()
@@ -225,6 +235,7 @@ namespace TarkaDyS.Forms
                 _process.TimeStep = timeStep;
                 
                 // Handle SP tracking PV in Manual mode
+                // FIXED: Setpoint tracking should make SP follow PV in Manual mode
                 if (!_pidController.AutoMode && chkSetpointTracking?.Checked == true)
                 {
                     _pidController.Setpoint = _process.Output;
@@ -343,13 +354,67 @@ namespace TarkaDyS.Forms
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("=== COMPLETE RESET TO INITIAL STATE ===");
+                
+                // Stop simulation first
+                if (_isRunning)
+                {
+                    StopSimulation();
+                }
+                
+                // Reset time and counters
                 _currentTime = 0.0;
+                _plotUpdateCounter = 0;
                 
-                // Reset both components while preserving steady state
-                _process.Reset();
+                // FIXED: Reset ALL parameters to initial defaults (like starting fresh)
+                
+                // Reset PID Controller to initial defaults with CONSERVATIVE tuning
                 _pidController.Reset();
+                _pidController.Setpoint = 50.0;              // Default setpoint
+                _pidController.Kp = 0.5;                     // CONSERVATIVE: Lower proportional gain
+                _pidController.Ki = 0.1;                     // CONSERVATIVE: Lower integral gain  
+                _pidController.Kd = 0.0;                     // CONSERVATIVE: No derivative action
+                _pidController.AutoMode = true;              // Start in Auto mode
+                _pidController.Algorithm = PidAlgorithm.BasicPID; // Default algorithm
+                _pidController.Initialize(50.0, 50.0);      // Initialize to 50% steady state
                 
-                // Clear plot data
+                // Reset Process Model to initial defaults
+                _process.Reset();
+                _process.ProcessGain = 1.0;                  // Default process gain
+                _process.TimeConstant = 10.0;               // Default time constant
+                _process.DeadTime = 1.0;                    // Default dead time
+                _process.Disturbance = 0.0;                 // No disturbance
+                _process.Initialize(50.0, 50.0);           // Initialize to 50% steady state
+                
+                // Reset control limits to defaults
+                _setpointLow = 0.0;
+                _setpointHigh = 100.0;
+                _outputLow = 0.0;
+                _outputHigh = 100.0;
+                _pidController.SetOutputLimits(_outputLow, _outputHigh);
+                
+                // Reset simulation parameters
+                _simulationSpeed = 1.0;                     // Real-time speed
+                
+                // Reset plot axis limits to defaults
+                _xAxisMin = 0.0;
+                _xAxisMax = 300.0;
+                _yAxisMin = 0.0;
+                _yAxisMax = 100.0;
+                
+                // Update axes
+                if (_timeAxis != null)
+                {
+                    _timeAxis.Minimum = _xAxisMin;
+                    _timeAxis.Maximum = _xAxisMax;
+                }
+                if (_valueAxis != null)
+                {
+                    _valueAxis.Minimum = _yAxisMin;
+                    _valueAxis.Maximum = _yAxisMax;
+                }
+                
+                // Clear all plot data
                 _setpointData.Clear();
                 _processVariableData.Clear();
                 _controllerOutputData.Clear();
@@ -360,22 +425,93 @@ namespace TarkaDyS.Forms
                 _controllerOutputSeries?.Points.Clear();
                 _errorSeries?.Points.Clear();
                 
-                // Reset time axis
-                if (_timeAxis != null)
-                {
-                    _timeAxis.Minimum = _xAxisMin;
-                    _timeAxis.Maximum = _xAxisMax;
-                }
+                // Update all UI controls to show reset values
+                UpdateUIControlsToDefaults();
                 
                 plotView?.InvalidatePlot(true);
                 UpdateUI();
                 
-                System.Diagnostics.Debug.WriteLine($"First Order Process simulation reset - SP: {_pidController.Setpoint:F1}%, PV: {_process.Output:F1}%, MV: {_pidController.Output:F1}%");
+                System.Diagnostics.Debug.WriteLine($"COMPLETE RESET FINISHED - All parameters restored to defaults");
+                System.Diagnostics.Debug.WriteLine($"Final State - SP: {_pidController.Setpoint:F1}%, PV: {_process.Output:F1}%, MV: {_pidController.Output:F1}%");
+                System.Diagnostics.Debug.WriteLine($"PID Gains - Kp: {_pidController.Kp:F3}, Ki: {_pidController.Ki:F3}, Kd: {_pidController.Kd:F3}");
+                System.Diagnostics.Debug.WriteLine($"Process - Gain: {_process.ProcessGain:F2}, Tau: {_process.TimeConstant:F1}, Td: {_process.DeadTime:F1}");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error resetting simulation: {ex.Message}", "Reset Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Diagnostics.Debug.WriteLine($"Reset error: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
+        /// Update UI controls to show default/reset values
+        /// </summary>
+        private void UpdateUIControlsToDefaults()
+        {
+            try
+            {
+                // Reset PID parameter controls with CONSERVATIVE tuning
+                if (numSetpoint != null) numSetpoint.Value = 50.0M;
+                if (numKp != null) numKp.Value = 0.5M;       // CONSERVATIVE: Lower Kp
+                if (numKi != null) numKi.Value = 0.1M;       // CONSERVATIVE: Lower Ki
+                if (numKd != null) numKd.Value = 0.0M;       // CONSERVATIVE: No derivative
+                if (numManualOutput != null) numManualOutput.Value = 50.0M;
+                if (cmbPidAlgorithm != null) cmbPidAlgorithm.SelectedIndex = 0; // BasicPID
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in UpdateUIControlsToDefaults: {ex.Message}");
+            }
+        }
+        #endregion
+
+        #region Parameter Tuning Methods
+        private void numKp_ValueChanged(object sender, EventArgs e)
+        {
+            if (numKp != null)
+                _pidController.Kp = (double)numKp.Value;
+        }
+
+        private void numKi_ValueChanged(object sender, EventArgs e)
+        {
+            if (numKi != null)
+                _pidController.Ki = (double)numKi.Value;
+        }
+
+        private void numKd_ValueChanged(object sender, EventArgs e)
+        {
+            if (numKd != null)
+                _pidController.Kd = (double)numKd.Value;
+        }
+
+        private void numSetpoint_ValueChanged(object sender, EventArgs e)
+        {
+            if (numSetpoint != null)
+            {
+                double newValue = (double)numSetpoint.Value;
+                newValue = Math.Max(0.0, Math.Min(newValue, 100.0));
+                
+                if (Math.Abs(newValue - _pidController.Setpoint) > 1e-6)
+                {
+                    _pidController.Setpoint = newValue;
+                    System.Diagnostics.Debug.WriteLine($"Setpoint set to {newValue:F2}");
+                }
+            }
+        }
+
+        private void numManualOutput_ValueChanged(object sender, EventArgs e)
+        {
+            if (numManualOutput != null)
+            {
+                double newValue = (double)numManualOutput.Value;
+                newValue = Math.Max(0.0, Math.Min(newValue, 100.0));
+                
+                if (Math.Abs(newValue - _pidController.ManualOutput) > 1e-6)
+                {
+                    _pidController.ManualOutput = newValue;
+                    System.Diagnostics.Debug.WriteLine($"Manual output set to {newValue:F2}");
+                }
             }
         }
         #endregion
@@ -477,12 +613,12 @@ namespace TarkaDyS.Forms
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"UI update error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error updating UI: {ex.Message}");
             }
         }
         #endregion
 
-        #region Event Handlers - Simulation Control
+        #region Event Handlers wired from Designer
         private void BtnStart_Click(object? sender, EventArgs e) => StartSimulation();
         private void BtnStop_Click(object? sender, EventArgs e) => StopSimulation();
         private void BtnReset_Click(object? sender, EventArgs e) => ResetSimulation();
@@ -498,41 +634,33 @@ namespace TarkaDyS.Forms
             _pidController.AutoMode = false;
             UpdateUI();
         }
-        #endregion
 
-        #region Event Handlers - Parameter Changes
-        private void NumSetpoint_ValueChanged(object? sender, EventArgs e)
+        private void TrkSimulationSpeed_ValueChanged(object? sender, EventArgs e)
         {
-            if (numSetpoint != null)
+            if (trkSimulationSpeed != null)
             {
-                double newSetpoint = (double)numSetpoint.Value;
-                // Apply setpoint limits
-                if (newSetpoint < _setpointLow) newSetpoint = _setpointLow;
-                if (newSetpoint > _setpointHigh) newSetpoint = _setpointHigh;
-                
-                _pidController.Setpoint = newSetpoint;
-                if (numSetpoint.Value != (decimal)newSetpoint)
-                    numSetpoint.Value = (decimal)newSetpoint;
+                _simulationSpeed = Math.Max(0.1, trkSimulationSpeed.Value / 10.0);
+                UpdateUI();
             }
         }
 
-        private void NumKp_ValueChanged(object? sender, EventArgs e)
+        private void CmbPidAlgorithm_SelectedIndexChanged(object? sender, EventArgs e)
         {
-            if (numKp != null)
-                _pidController.Kp = (double)numKp.Value;
+            if (cmbPidAlgorithm != null)
+            {
+                _pidController.Algorithm = (PidAlgorithm)cmbPidAlgorithm.SelectedIndex;
+                // Light reset for smooth switching
+                _pidController.Reset();
+                UpdateUI();
+            }
         }
 
-        private void NumKi_ValueChanged(object? sender, EventArgs e)
-        {
-            if (numKi != null)
-                _pidController.Ki = (double)numKi.Value;
-        }
-
-        private void NumKd_ValueChanged(object? sender, EventArgs e)
-        {
-            if (numKd != null)
-                _pidController.Kd = (double)numKd.Value;
-        }
+        // NumericUpDown handlers (capitalized) mapped from Designer
+        private void NumKp_ValueChanged(object? sender, EventArgs e) => numKp_ValueChanged(sender!, e);
+        private void NumKi_ValueChanged(object? sender, EventArgs e) => numKi_ValueChanged(sender!, e);
+        private void NumKd_ValueChanged(object? sender, EventArgs e) => numKd_ValueChanged(sender!, e);
+        private void NumSetpoint_ValueChanged(object? sender, EventArgs e) => numSetpoint_ValueChanged(sender!, e);
+        private void NumManualOutput_ValueChanged(object? sender, EventArgs e) => numManualOutput_ValueChanged(sender!, e);
 
         private void NumProcessGain_ValueChanged(object? sender, EventArgs e)
         {
@@ -558,37 +686,6 @@ namespace TarkaDyS.Forms
                 _process.Disturbance = (double)numDisturbance.Value;
         }
 
-        private void NumManualOutput_ValueChanged(object? sender, EventArgs e)
-        {
-            if (numManualOutput != null)
-            {
-                double newOutput = (double)numManualOutput.Value;
-                // Apply output limits
-                if (newOutput < _outputLow) newOutput = _outputLow;
-                if (newOutput > _outputHigh) newOutput = _outputHigh;
-                
-                _pidController.ManualOutput = newOutput;
-                if (numManualOutput.Value != (decimal)newOutput)
-                    numManualOutput.Value = (decimal)newOutput;
-            }
-        }
-
-        private void CmbPidAlgorithm_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            if (cmbPidAlgorithm != null)
-                _pidController.Algorithm = (PidAlgorithm)cmbPidAlgorithm.SelectedIndex;
-        }
-
-        private void TrkSimulationSpeed_ValueChanged(object? sender, EventArgs e)
-        {
-            if (trkSimulationSpeed != null)
-            {
-                _simulationSpeed = trkSimulationSpeed.Value / 10.0;
-                UpdateUI();
-            }
-        }
-        
-        // New event handlers for enhanced features
         private void NumSetpointLow_ValueChanged(object? sender, EventArgs e)
         {
             if (numSetpointLow != null)
@@ -681,19 +778,6 @@ namespace TarkaDyS.Forms
                 _valueAxis.Maximum = _yAxisMax;
                 plotView?.InvalidatePlot(true);
             }
-        }
-        #endregion
-
-        #region IDisposable Implementation
-        protected override void Dispose(bool disposing)
-        {
-            if (!_disposed && disposing)
-            {
-                StopSimulation();
-                _simulationTimer?.Dispose();
-                _disposed = true;
-            }
-            base.Dispose(disposing);
         }
         #endregion
     }

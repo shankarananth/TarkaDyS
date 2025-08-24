@@ -1,109 +1,137 @@
 /*
  * File: MainForm.cs
  * Author: Shankar Ananth Asokan
- * Purpose: Main application form with Models menu and single instance management
- * Date Created: 2025-08-23
- * Date Modified: 2025-08-23
+ * Purpose: Main application form with model management and single instance control
+ * Date Created: 24-Aug-2025
+ * Date Modified: 24-Aug-2025
+ * 
+ * Description: Main form for TarkaDyS PID simulation application.
+ * Provides menu access to various process control models and manages
+ * single instances of model forms to prevent duplicates.
  */
 
 using TarkaDyS.Forms;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TarkaDyS.Utilities;
 
 namespace TarkaDyS
 {
     /// <summary>
-    /// Main form for the TarkaDyS PID simulation application with model management
+    /// Main application form with model management capabilities
+    /// Serves as the central hub for accessing different simulation models
     /// </summary>
     public partial class MainForm : Form
     {
-        // Dictionary to track single instances of model forms
+        #region Private Fields
+        /// <summary>Dictionary to track open model forms and prevent duplicates</summary>
         private readonly Dictionary<Type, Form> _openModelForms = new();
+        #endregion
 
+        #region Constructor
         public MainForm()
         {
             InitializeComponent();
             this.Text = "TarkaDyS - PID Control System Models";
+            
+            // Apply application icon from Resources folder if available
+            ResourceHelper.ApplyAppIcon(this);
         }
+        #endregion
 
+        #region Public Methods
         /// <summary>
-        /// Opens a model form as a single instance
+        /// Opens a model form as a single instance (prevents duplicates)
+        /// If form is already open, brings it to front instead of creating new instance
         /// </summary>
-        /// <typeparam name="T">Type of the form to open</typeparam>
-        /// <param name="formName">Display name for logging and messages</param>
+        /// <typeparam name="T">Type of form to open</typeparam>
+        /// <param name="formName">Display name for logging and error messages</param>
         private void OpenSingleInstanceForm<T>(string formName) where T : Form, new()
         {
             try
             {
                 var formType = typeof(T);
                 
-                // Check if form is already open
+                // Check if this type of form is already open
                 if (_openModelForms.ContainsKey(formType) && 
                     _openModelForms[formType] != null && 
                     !_openModelForms[formType].IsDisposed)
                 {
-                    // Bring existing form to front
+                    // Bring existing form to front instead of creating new instance
                     _openModelForms[formType].BringToFront();
                     _openModelForms[formType].WindowState = FormWindowState.Normal;
-                    System.Diagnostics.Debug.WriteLine($"{formName} form already open - brought to front");
+                    System.Diagnostics.Debug.WriteLine($"{formName} already open - brought to front");
                     return;
                 }
 
-                // Create new instance
+                // Create new instance of the requested form
                 var newForm = new T();
                 
-                // Store reference
+                // Store reference for single instance management
                 _openModelForms[formType] = newForm;
                 
-                // Handle form closing to clean up reference
+                // Setup cleanup when form is closed
                 newForm.FormClosed += (sender, e) => {
                     if (_openModelForms.ContainsKey(formType))
                     {
                         _openModelForms.Remove(formType);
-                        System.Diagnostics.Debug.WriteLine($"{formName} form closed - reference removed");
+                        System.Diagnostics.Debug.WriteLine($"{formName} closed - reference removed");
                     }
                 };
                 
-                // Show the form
+                // Show the new form
                 newForm.Show();
-                System.Diagnostics.Debug.WriteLine($"{formName} form opened successfully");
+                System.Diagnostics.Debug.WriteLine($"{formName} opened successfully");
             }
             catch (Exception ex)
             {
+                // Show error message to user and log details
                 MessageBox.Show($"Error opening {formName}: {ex.Message}", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 System.Diagnostics.Debug.WriteLine($"Error opening {formName}: {ex}");
             }
         }
+        #endregion
 
         #region Model Menu Event Handlers
-
+        /// <summary>
+        /// Handle menu click for First Order Process with PID model
+        /// </summary>
         private void MenuFirstOrderPid_Click(object sender, EventArgs e)
         {
             OpenSingleInstanceForm<FirstOrderProcessWithPidForm>("First Order Process with PID");
         }
 
-        // Future model handlers can be added here
-        // private void MenuSecondOrderPid_Click(object sender, EventArgs e)
-        // {
-        //     OpenSingleInstanceForm<SecondOrderProcessWithPidForm>("Second Order Process with PID");
-        // }
+        // Placeholder for future model implementations
+        // Uncomment and implement as new models are added to the application
         
-        // private void MenuTankLevelPid_Click(object sender, EventArgs e)
-        // {
-        //     OpenSingleInstanceForm<TankLevelWithPidForm>("Tank Level with PID");
-        // }
+        /*
+        /// <summary>Handle menu click for Second Order Process with PID model</summary>
+        private void MenuSecondOrderPid_Click(object sender, EventArgs e)
+        {
+            OpenSingleInstanceForm<SecondOrderProcessWithPidForm>("Second Order Process with PID");
+        }
         
-        // private void MenuTemperaturePid_Click(object sender, EventArgs e)
-        // {
-        //     OpenSingleInstanceForm<TemperatureWithPidForm>("Temperature Process with PID");
-        // }
-
+        /// <summary>Handle menu click for Tank Level with PID model</summary>
+        private void MenuTankLevelPid_Click(object sender, EventArgs e)
+        {
+            OpenSingleInstanceForm<TankLevelWithPidForm>("Tank Level with PID");
+        }
+        
+        /// <summary>Handle menu click for Temperature Process with PID model</summary>
+        private void MenuTemperaturePid_Click(object sender, EventArgs e)
+        {
+            OpenSingleInstanceForm<TemperatureWithPidForm>("Temperature Process with PID");
+        }
+        */
         #endregion
 
-        #region Cleanup
-
+        #region Cleanup and Disposal
+        /// <summary>
+        /// Clean up resources when main form is disposed
+        /// Ensures all open model forms are properly closed
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -118,11 +146,11 @@ namespace TarkaDyS
                 }
                 _openModelForms.Clear();
                 
+                // Dispose standard form components
                 components?.Dispose();
             }
             base.Dispose(disposing);
         }
-
         #endregion
     }
 }

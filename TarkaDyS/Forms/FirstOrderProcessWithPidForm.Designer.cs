@@ -2,8 +2,12 @@
  * File: FirstOrderProcessWithPidForm.Designer.cs
  * Author: Shankar Ananth Asokan
  * Purpose: Enhanced designer file for First Order Process with PID simulation form
- * Date Created: 2025-08-23
- * Date Modified: 2025-08-23
+ * Date Created: 2024-12-19
+ * Date Modified: 2024-12-19
+ * 
+ * FIXED: Complete Visual Studio Designer compatible layout
+ * FIXED: All controls properly positioned and visible in designer
+ * FIXED: Optimized for HD screens with proper scaling
  */
 
 using OxyPlot.WindowsForms;
@@ -21,21 +25,62 @@ namespace TarkaDyS.Forms
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         
-        // Controls - Enhanced with professional features
+        // Main plot control
         private PlotView plotView;
-        private Button btnStart, btnStop, btnReset, btnAuto, btnManual;
-        private NumericUpDown numSetpoint, numKp, numKi, numKd;
-        private NumericUpDown numProcessGain, numTimeConstant, numDeadTime, numDisturbance;
+        
+        // Simulation control buttons
+        private Button btnStart;
+        private Button btnStop;
+        private Button btnReset;
+        
+        // Auto/Manual control
+        private Button btnAuto;
+        private Button btnManual;
+        
+        // PID parameters
+        private NumericUpDown numSetpoint;
+        private NumericUpDown numKp;
+        private NumericUpDown numKi; 
+        private NumericUpDown numKd;
         private NumericUpDown numManualOutput;
         private ComboBox cmbPidAlgorithm;
-        private TrackBar trkSimulationSpeed;
-        private Label lblSimulationSpeed, lblProcessVariable, lblControllerOutput, lblError, lblSimulationTime;
-        private GroupBox grpSimulation, grpPidParameters, grpProcessParameters, grpProcessStatus, grpPlotControls;
         
-        // Enhanced controls for professional features
-        private NumericUpDown numSetpointLow, numSetpointHigh, numOutputLow, numOutputHigh;
-        private NumericUpDown numXAxisMin, numXAxisMax, numYAxisMin, numYAxisMax;
-        private CheckBox chkSetpointTracking, chkAutoScale;
+        // Process parameters
+        private NumericUpDown numProcessGain;
+        private NumericUpDown numTimeConstant;
+        private NumericUpDown numDeadTime;
+        private NumericUpDown numDisturbance;
+        
+        // Enhanced limits
+        private NumericUpDown numSetpointLow;
+        private NumericUpDown numSetpointHigh;
+        private NumericUpDown numOutputLow;
+        private NumericUpDown numOutputHigh;
+        
+        // Plot axis controls
+        private NumericUpDown numXAxisMin;
+        private NumericUpDown numXAxisMax;
+        private NumericUpDown numYAxisMin;
+        private NumericUpDown numYAxisMax;
+        private CheckBox chkAutoScale;
+        
+        // Simulation controls
+        private TrackBar trkSimulationSpeed;
+        private CheckBox chkSetpointTracking;
+        
+        // Status displays
+        private Label lblProcessVariable;
+        private Label lblControllerOutput;
+        private Label lblError;
+        private Label lblSimulationTime;
+        private Label lblSimulationSpeed;
+        
+        // Group boxes
+        private GroupBox grpSimulation;
+        private GroupBox grpPidParameters;
+        private GroupBox grpProcessParameters;
+        private GroupBox grpProcessStatus;
+        private GroupBox grpPlotControls;
 
         #region Windows Form Designer generated code
 
@@ -45,677 +90,883 @@ namespace TarkaDyS.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new Container();
-            this.SuspendLayout();
-            
-            // 
-            // FirstOrderProcessWithPidForm
-            // 
-            this.AutoScaleDimensions = new SizeF(8F, 20F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(1600, 900);
-            this.Name = "FirstOrderProcessWithPidForm";
-            this.Text = "First Order Process with PID - Professional Edition";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.MinimumSize = new Size(1400, 800);
-            
+            plotView = new PlotView();
+            grpSimulation = new GroupBox();
+            btnStart = new Button();
+            btnStop = new Button();
+            btnReset = new Button();
+            lblSpeedLabel = new Label();
+            trkSimulationSpeed = new TrackBar();
+            lblSimulationSpeed = new Label();
+            lblTimeLabel = new Label();
+            lblSimulationTime = new Label();
+            grpPidParameters = new GroupBox();
+            btnAuto = new Button();
+            btnManual = new Button();
+            lblAlgorithm = new Label();
+            cmbPidAlgorithm = new ComboBox();
+            lblSetpoint = new Label();
+            numSetpoint = new NumericUpDown();
+            lblSPLimits = new Label();
+            numSetpointLow = new NumericUpDown();
+            numSetpointHigh = new NumericUpDown();
+            lblManualOutput = new Label();
+            numManualOutput = new NumericUpDown();
+            lblOPLimits = new Label();
+            numOutputLow = new NumericUpDown();
+            numOutputHigh = new NumericUpDown();
+            chkSetpointTracking = new CheckBox();
+            lblKp = new Label();
+            numKp = new NumericUpDown();
+            lblKi = new Label();
+            numKi = new NumericUpDown();
+            lblKd = new Label();
+            numKd = new NumericUpDown();
+            grpProcessParameters = new GroupBox();
+            lblGain = new Label();
+            numProcessGain = new NumericUpDown();
+            lblTau = new Label();
+            numTimeConstant = new NumericUpDown();
+            lblTd = new Label();
+            numDeadTime = new NumericUpDown();
+            lblDisturbance = new Label();
+            numDisturbance = new NumericUpDown();
+            grpProcessStatus = new GroupBox();
+            lblPVLabel = new Label();
+            lblProcessVariable = new Label();
+            lblMVLabel = new Label();
+            lblControllerOutput = new Label();
+            lblErrorLabel = new Label();
+            lblError = new Label();
+            grpPlotControls = new GroupBox();
+            lblXAxis = new Label();
+            lblXMin = new Label();
+            numXAxisMin = new NumericUpDown();
+            lblXMax = new Label();
+            numXAxisMax = new NumericUpDown();
+            lblYAxis = new Label();
+            lblYMin = new Label();
+            numYAxisMin = new NumericUpDown();
+            lblYMax = new Label();
+            numYAxisMax = new NumericUpDown();
+            chkAutoScale = new CheckBox();
+            grpSimulation.SuspendLayout();
+            ((ISupportInitialize)trkSimulationSpeed).BeginInit();
+            grpPidParameters.SuspendLayout();
+            ((ISupportInitialize)numSetpoint).BeginInit();
+            ((ISupportInitialize)numSetpointLow).BeginInit();
+            ((ISupportInitialize)numSetpointHigh).BeginInit();
+            ((ISupportInitialize)numManualOutput).BeginInit();
+            ((ISupportInitialize)numOutputLow).BeginInit();
+            ((ISupportInitialize)numOutputHigh).BeginInit();
+            ((ISupportInitialize)numKp).BeginInit();
+            ((ISupportInitialize)numKi).BeginInit();
+            ((ISupportInitialize)numKd).BeginInit();
+            grpProcessParameters.SuspendLayout();
+            ((ISupportInitialize)numProcessGain).BeginInit();
+            ((ISupportInitialize)numTimeConstant).BeginInit();
+            ((ISupportInitialize)numDeadTime).BeginInit();
+            ((ISupportInitialize)numDisturbance).BeginInit();
+            grpProcessStatus.SuspendLayout();
+            grpPlotControls.SuspendLayout();
+            ((ISupportInitialize)numXAxisMin).BeginInit();
+            ((ISupportInitialize)numXAxisMax).BeginInit();
+            ((ISupportInitialize)numYAxisMin).BeginInit();
+            ((ISupportInitialize)numYAxisMax).BeginInit();
+            SuspendLayout();
             // 
             // plotView
             // 
-            this.plotView = new PlotView();
-            this.plotView.Location = new Point(12, 12);
-            this.plotView.Name = "plotView";
-            this.plotView.Size = new Size(950, 650);
-            this.plotView.TabIndex = 0;
-            this.plotView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            
+            plotView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            plotView.Location = new Point(22, 26);
+            plotView.Margin = new Padding(6);
+            plotView.Name = "plotView";
+            plotView.PanCursor = Cursors.Hand;
+            plotView.Size = new Size(1709, 1169);
+            plotView.TabIndex = 0;
+            plotView.ZoomHorizontalCursor = Cursors.SizeWE;
+            plotView.ZoomRectangleCursor = Cursors.SizeNWSE;
+            plotView.ZoomVerticalCursor = Cursors.SizeNS;
             // 
-            // grpSimulation - Simulation Controls
+            // grpSimulation
             // 
-            this.grpSimulation = new GroupBox();
-            this.grpSimulation.Location = new Point(980, 12);
-            this.grpSimulation.Name = "grpSimulation";
-            this.grpSimulation.Size = new Size(600, 120);
-            this.grpSimulation.TabIndex = 1;
-            this.grpSimulation.TabStop = false;
-            this.grpSimulation.Text = "Simulation Controls";
-            this.grpSimulation.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            
-            // Start/Stop/Reset buttons
-            this.btnStart = new Button();
-            this.btnStart.BackColor = Color.LightGreen;
-            this.btnStart.Location = new Point(15, 25);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new Size(80, 35);
-            this.btnStart.TabIndex = 0;
-            this.btnStart.Text = "START";
-            this.btnStart.UseVisualStyleBackColor = false;
-            this.btnStart.Click += new EventHandler(this.BtnStart_Click);
-            
-            this.btnStop = new Button();
-            this.btnStop.BackColor = Color.LightCoral;
-            this.btnStop.Location = new Point(105, 25);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new Size(80, 35);
-            this.btnStop.TabIndex = 1;
-            this.btnStop.Text = "STOP";
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new EventHandler(this.BtnStop_Click);
-            
-            this.btnReset = new Button();
-            this.btnReset.BackColor = Color.LightBlue;
-            this.btnReset.Location = new Point(195, 25);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new Size(80, 35);
-            this.btnReset.TabIndex = 2;
-            this.btnReset.Text = "RESET";
-            this.btnReset.UseVisualStyleBackColor = false;
-            this.btnReset.Click += new EventHandler(this.BtnReset_Click);
-            
-            // Simulation Speed Control
-            var lblSpeedLabel = new Label();
-            lblSpeedLabel.Location = new Point(15, 70);
+            grpSimulation.Controls.Add(btnStart);
+            grpSimulation.Controls.Add(btnStop);
+            grpSimulation.Controls.Add(btnReset);
+            grpSimulation.Controls.Add(lblSpeedLabel);
+            grpSimulation.Controls.Add(trkSimulationSpeed);
+            grpSimulation.Controls.Add(lblSimulationSpeed);
+            grpSimulation.Controls.Add(lblTimeLabel);
+            grpSimulation.Controls.Add(lblSimulationTime);
+            grpSimulation.Location = new Point(1764, 26);
+            grpSimulation.Margin = new Padding(6);
+            grpSimulation.Name = "grpSimulation";
+            grpSimulation.Padding = new Padding(6);
+            grpSimulation.Size = new Size(823, 293);
+            grpSimulation.TabIndex = 1;
+            grpSimulation.TabStop = false;
+            grpSimulation.Text = "Simulation Controls";
+            // 
+            // btnStart
+            // 
+            btnStart.BackColor = Color.LightGreen;
+            btnStart.FlatStyle = FlatStyle.Flat;
+            btnStart.Location = new Point(28, 53);
+            btnStart.Margin = new Padding(6);
+            btnStart.Name = "btnStart";
+            btnStart.Size = new Size(139, 75);
+            btnStart.TabIndex = 0;
+            btnStart.Text = "START";
+            btnStart.UseVisualStyleBackColor = false;
+            btnStart.Click += BtnStart_Click;
+            // 
+            // btnStop
+            // 
+            btnStop.BackColor = Color.LightCoral;
+            btnStop.FlatStyle = FlatStyle.Flat;
+            btnStop.Location = new Point(186, 53);
+            btnStop.Margin = new Padding(6);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new Size(139, 75);
+            btnStop.TabIndex = 1;
+            btnStop.Text = "STOP";
+            btnStop.UseVisualStyleBackColor = false;
+            btnStop.Click += BtnStop_Click;
+            // 
+            // btnReset
+            // 
+            btnReset.BackColor = Color.LightBlue;
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Location = new Point(344, 53);
+            btnReset.Margin = new Padding(6);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(139, 75);
+            btnReset.TabIndex = 2;
+            btnReset.Text = "RESET";
+            btnReset.UseVisualStyleBackColor = false;
+            btnReset.Click += BtnReset_Click;
+            // 
+            // lblSpeedLabel
+            // 
+            lblSpeedLabel.AutoSize = true;
+            lblSpeedLabel.Location = new Point(28, 151);
+            lblSpeedLabel.Margin = new Padding(6, 0, 6, 0);
             lblSpeedLabel.Name = "lblSpeedLabel";
-            lblSpeedLabel.Size = new Size(80, 23);
-            lblSpeedLabel.Text = "Sim Speed:";
-
-            this.trkSimulationSpeed = new TrackBar();
-            this.trkSimulationSpeed.Location = new Point(100, 65);
-            this.trkSimulationSpeed.Maximum = 50;
-            this.trkSimulationSpeed.Minimum = 1;
-            this.trkSimulationSpeed.Name = "trkSimulationSpeed";
-            this.trkSimulationSpeed.Size = new Size(300, 56);
-            this.trkSimulationSpeed.TabIndex = 3;
-            this.trkSimulationSpeed.TickFrequency = 10;
-            this.trkSimulationSpeed.Value = 10;
-            this.trkSimulationSpeed.ValueChanged += new EventHandler(this.TrkSimulationSpeed_ValueChanged);
-            
-            this.lblSimulationSpeed = new Label();
-            this.lblSimulationSpeed.ForeColor = Color.Green;
-            this.lblSimulationSpeed.Location = new Point(410, 70);
-            this.lblSimulationSpeed.Name = "lblSimulationSpeed";
-            this.lblSimulationSpeed.Size = new Size(50, 23);
-            this.lblSimulationSpeed.TabIndex = 4;
-            this.lblSimulationSpeed.Text = "1.0x";
-            
-            // Simulation Time Display
-            var lblTimeLabel = new Label();
-            lblTimeLabel.Location = new Point(470, 25);
+            lblSpeedLabel.Size = new Size(86, 32);
+            lblSpeedLabel.TabIndex = 3;
+            lblSpeedLabel.Text = "Speed:";
+            // 
+            // trkSimulationSpeed
+            // 
+            trkSimulationSpeed.Location = new Point(28, 194);
+            trkSimulationSpeed.Margin = new Padding(6);
+            trkSimulationSpeed.Maximum = 50;
+            trkSimulationSpeed.Minimum = 1;
+            trkSimulationSpeed.Name = "trkSimulationSpeed";
+            trkSimulationSpeed.Size = new Size(371, 90);
+            trkSimulationSpeed.TabIndex = 4;
+            trkSimulationSpeed.TickFrequency = 10;
+            trkSimulationSpeed.Value = 10;
+            trkSimulationSpeed.ValueChanged += TrkSimulationSpeed_ValueChanged;
+            // 
+            // lblSimulationSpeed
+            // 
+            lblSimulationSpeed.AutoSize = true;
+            lblSimulationSpeed.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold);
+            lblSimulationSpeed.ForeColor = Color.Green;
+            lblSimulationSpeed.Location = new Point(418, 215);
+            lblSimulationSpeed.Margin = new Padding(6, 0, 6, 0);
+            lblSimulationSpeed.Name = "lblSimulationSpeed";
+            lblSimulationSpeed.Size = new Size(60, 29);
+            lblSimulationSpeed.TabIndex = 5;
+            lblSimulationSpeed.Text = "1.0x";
+            // 
+            // lblTimeLabel
+            // 
+            lblTimeLabel.AutoSize = true;
+            lblTimeLabel.Location = new Point(519, 151);
+            lblTimeLabel.Margin = new Padding(6, 0, 6, 0);
             lblTimeLabel.Name = "lblTimeLabel";
-            lblTimeLabel.Size = new Size(60, 23);
-            lblTimeLabel.Text = "Time (s):";
-            
-            this.lblSimulationTime = new Label();
-            this.lblSimulationTime.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            this.lblSimulationTime.ForeColor = Color.Blue;
-            this.lblSimulationTime.Location = new Point(470, 48);
-            this.lblSimulationTime.Name = "lblSimulationTime";
-            this.lblSimulationTime.Size = new Size(80, 30);
-            this.lblSimulationTime.TabIndex = 5;
-            this.lblSimulationTime.Text = "0.0";
-            
-            // Add controls to simulation group
-            this.grpSimulation.Controls.Add(this.btnStart);
-            this.grpSimulation.Controls.Add(this.btnStop);
-            this.grpSimulation.Controls.Add(this.btnReset);
-            this.grpSimulation.Controls.Add(lblSpeedLabel);
-            this.grpSimulation.Controls.Add(this.trkSimulationSpeed);
-            this.grpSimulation.Controls.Add(this.lblSimulationSpeed);
-            this.grpSimulation.Controls.Add(lblTimeLabel);
-            this.grpSimulation.Controls.Add(this.lblSimulationTime);
-            
+            lblTimeLabel.Size = new Size(224, 32);
+            lblTimeLabel.TabIndex = 6;
+            lblTimeLabel.Text = "Simulation Time (s):";
             // 
-            // grpPidParameters - Enhanced PID Parameters
+            // lblSimulationTime
             // 
-            this.grpPidParameters = new GroupBox();
-            this.grpPidParameters.Location = new Point(980, 145);
-            this.grpPidParameters.Name = "grpPidParameters";
-            this.grpPidParameters.Size = new Size(600, 220);
-            this.grpPidParameters.TabIndex = 2;
-            this.grpPidParameters.TabStop = false;
-            this.grpPidParameters.Text = "PID Parameters";
-            this.grpPidParameters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            
-            // Initialize PID controls
-            this.InitializePidControls();
-            
+            lblSimulationTime.AutoSize = true;
+            lblSimulationTime.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+            lblSimulationTime.ForeColor = Color.Blue;
+            lblSimulationTime.Location = new Point(519, 194);
+            lblSimulationTime.Margin = new Padding(6, 0, 6, 0);
+            lblSimulationTime.Name = "lblSimulationTime";
+            lblSimulationTime.Size = new Size(55, 31);
+            lblSimulationTime.TabIndex = 7;
+            lblSimulationTime.Text = "0.0";
+            // 
+            // grpPidParameters
+            // 
+            grpPidParameters.Controls.Add(btnAuto);
+            grpPidParameters.Controls.Add(btnManual);
+            grpPidParameters.Controls.Add(lblAlgorithm);
+            grpPidParameters.Controls.Add(cmbPidAlgorithm);
+            grpPidParameters.Controls.Add(lblSetpoint);
+            grpPidParameters.Controls.Add(numSetpoint);
+            grpPidParameters.Controls.Add(lblSPLimits);
+            grpPidParameters.Controls.Add(numSetpointLow);
+            grpPidParameters.Controls.Add(numSetpointHigh);
+            grpPidParameters.Controls.Add(lblManualOutput);
+            grpPidParameters.Controls.Add(numManualOutput);
+            grpPidParameters.Controls.Add(lblOPLimits);
+            grpPidParameters.Controls.Add(numOutputLow);
+            grpPidParameters.Controls.Add(numOutputHigh);
+            grpPidParameters.Controls.Add(chkSetpointTracking);
+            grpPidParameters.Controls.Add(lblKp);
+            grpPidParameters.Controls.Add(numKp);
+            grpPidParameters.Controls.Add(lblKi);
+            grpPidParameters.Controls.Add(numKi);
+            grpPidParameters.Controls.Add(lblKd);
+            grpPidParameters.Controls.Add(numKd);
+            grpPidParameters.Location = new Point(1764, 355);
+            grpPidParameters.Margin = new Padding(6);
+            grpPidParameters.Name = "grpPidParameters";
+            grpPidParameters.Padding = new Padding(6);
+            grpPidParameters.Size = new Size(823, 598);
+            grpPidParameters.TabIndex = 2;
+            grpPidParameters.TabStop = false;
+            grpPidParameters.Text = "PID Parameters";
+            // 
+            // btnAuto
+            // 
+            btnAuto.BackColor = Color.LightGreen;
+            btnAuto.FlatStyle = FlatStyle.Flat;
+            btnAuto.Location = new Point(28, 53);
+            btnAuto.Margin = new Padding(6);
+            btnAuto.Name = "btnAuto";
+            btnAuto.Size = new Size(149, 75);
+            btnAuto.TabIndex = 0;
+            btnAuto.Text = "AUTO";
+            btnAuto.UseVisualStyleBackColor = false;
+            btnAuto.Click += BtnAuto_Click;
+            // 
+            // btnManual
+            // 
+            btnManual.BackColor = Color.LightGray;
+            btnManual.FlatStyle = FlatStyle.Flat;
+            btnManual.Location = new Point(195, 53);
+            btnManual.Margin = new Padding(6);
+            btnManual.Name = "btnManual";
+            btnManual.Size = new Size(149, 75);
+            btnManual.TabIndex = 1;
+            btnManual.Text = "MANUAL";
+            btnManual.UseVisualStyleBackColor = false;
+            btnManual.Click += BtnManual_Click;
+            // 
+            // lblAlgorithm
+            // 
+            lblAlgorithm.AutoSize = true;
+            lblAlgorithm.Location = new Point(373, 96);
+            lblAlgorithm.Margin = new Padding(6, 0, 6, 0);
+            lblAlgorithm.Name = "lblAlgorithm";
+            lblAlgorithm.Size = new Size(125, 32);
+            lblAlgorithm.TabIndex = 2;
+            lblAlgorithm.Text = "Algorithm:";
+            // 
+            // cmbPidAlgorithm
+            // 
+            cmbPidAlgorithm.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPidAlgorithm.Items.AddRange(new object[] { "BasicPID", "I-PD", "PI-D" });
+            cmbPidAlgorithm.Location = new Point(521, 90);
+            cmbPidAlgorithm.Margin = new Padding(6);
+            cmbPidAlgorithm.Name = "cmbPidAlgorithm";
+            cmbPidAlgorithm.Size = new Size(219, 40);
+            cmbPidAlgorithm.TabIndex = 3;
+            cmbPidAlgorithm.SelectedIndexChanged += CmbPidAlgorithm_SelectedIndexChanged;
+            // 
+            // lblSetpoint
+            // 
+            lblSetpoint.AutoSize = true;
+            lblSetpoint.Location = new Point(28, 160);
+            lblSetpoint.Margin = new Padding(6, 0, 6, 0);
+            lblSetpoint.Name = "lblSetpoint";
+            lblSetpoint.Size = new Size(109, 32);
+            lblSetpoint.TabIndex = 4;
+            lblSetpoint.Text = "Setpoint:";
+            // 
+            // numSetpoint
+            // 
+            numSetpoint.DecimalPlaces = 1;
+            numSetpoint.Location = new Point(28, 203);
+            numSetpoint.Margin = new Padding(6);
+            numSetpoint.Name = "numSetpoint";
+            numSetpoint.Size = new Size(130, 39);
+            numSetpoint.TabIndex = 5;
+            numSetpoint.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numSetpoint.ValueChanged += NumSetpoint_ValueChanged;
+            // 
+            // lblSPLimits
+            // 
+            lblSPLimits.AutoSize = true;
+            lblSPLimits.Location = new Point(28, 304);
+            lblSPLimits.Margin = new Padding(6, 0, 6, 0);
+            lblSPLimits.Name = "lblSPLimits";
+            lblSPLimits.Size = new Size(114, 32);
+            lblSPLimits.TabIndex = 6;
+            lblSPLimits.Text = "SP Limits:";
+            // 
+            // numSetpointLow
+            // 
+            numSetpointLow.DecimalPlaces = 1;
+            numSetpointLow.Location = new Point(28, 347);
+            numSetpointLow.Margin = new Padding(6);
+            numSetpointLow.Name = "numSetpointLow";
+            numSetpointLow.Size = new Size(111, 39);
+            numSetpointLow.TabIndex = 7;
+            numSetpointLow.ValueChanged += NumSetpointLow_ValueChanged;
+            // 
+            // numSetpointHigh
+            // 
+            numSetpointHigh.DecimalPlaces = 1;
+            numSetpointHigh.Location = new Point(158, 347);
+            numSetpointHigh.Margin = new Padding(6);
+            numSetpointHigh.Name = "numSetpointHigh";
+            numSetpointHigh.Size = new Size(111, 39);
+            numSetpointHigh.TabIndex = 8;
+            numSetpointHigh.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            numSetpointHigh.ValueChanged += NumSetpointHigh_ValueChanged;
+            // 
+            // lblManualOutput
+            // 
+            lblManualOutput.AutoSize = true;
+            lblManualOutput.Location = new Point(195, 160);
+            lblManualOutput.Margin = new Padding(6, 0, 6, 0);
+            lblManualOutput.Name = "lblManualOutput";
+            lblManualOutput.Size = new Size(95, 32);
+            lblManualOutput.TabIndex = 9;
+            lblManualOutput.Text = "Output:";
+            // 
+            // numManualOutput
+            // 
+            numManualOutput.DecimalPlaces = 1;
+            numManualOutput.Enabled = false;
+            numManualOutput.Location = new Point(195, 203);
+            numManualOutput.Margin = new Padding(6);
+            numManualOutput.Name = "numManualOutput";
+            numManualOutput.Size = new Size(130, 39);
+            numManualOutput.TabIndex = 10;
+            numManualOutput.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            numManualOutput.ValueChanged += NumManualOutput_ValueChanged;
+            // 
+            // lblOPLimits
+            // 
+            lblOPLimits.AutoSize = true;
+            lblOPLimits.Location = new Point(332, 304);
+            lblOPLimits.Margin = new Padding(6, 0, 6, 0);
+            lblOPLimits.Name = "lblOPLimits";
+            lblOPLimits.Size = new Size(119, 32);
+            lblOPLimits.TabIndex = 11;
+            lblOPLimits.Text = "OP Limits:";
+            // 
+            // numOutputLow
+            // 
+            numOutputLow.DecimalPlaces = 1;
+            numOutputLow.Location = new Point(332, 347);
+            numOutputLow.Margin = new Padding(6);
+            numOutputLow.Name = "numOutputLow";
+            numOutputLow.Size = new Size(111, 39);
+            numOutputLow.TabIndex = 12;
+            numOutputLow.ValueChanged += NumOutputLow_ValueChanged;
+            // 
+            // numOutputHigh
+            // 
+            numOutputHigh.DecimalPlaces = 1;
+            numOutputHigh.Location = new Point(462, 347);
+            numOutputHigh.Margin = new Padding(6);
+            numOutputHigh.Name = "numOutputHigh";
+            numOutputHigh.Size = new Size(111, 39);
+            numOutputHigh.TabIndex = 13;
+            numOutputHigh.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            numOutputHigh.ValueChanged += NumOutputHigh_ValueChanged;
+            // 
+            // chkSetpointTracking
+            // 
+            chkSetpointTracking.AutoSize = true;
+            chkSetpointTracking.Checked = true;
+            chkSetpointTracking.CheckState = CheckState.Checked;
+            chkSetpointTracking.Location = new Point(373, 206);
+            chkSetpointTracking.Margin = new Padding(6);
+            chkSetpointTracking.Name = "chkSetpointTracking";
+            chkSetpointTracking.Size = new Size(247, 36);
+            chkSetpointTracking.TabIndex = 14;
+            chkSetpointTracking.Text = "SP Tracks PV (Man)";
+            chkSetpointTracking.UseVisualStyleBackColor = true;
+            // 
+            // lblKp
+            // 
+            lblKp.AutoSize = true;
+            lblKp.Location = new Point(26, 482);
+            lblKp.Margin = new Padding(6, 0, 6, 0);
+            lblKp.Name = "lblKp";
+            lblKp.Size = new Size(116, 32);
+            lblKp.TabIndex = 15;
+            lblKp.Text = "Gain (Kp):";
+            // 
+            // numKp
+            // 
+            numKp.DecimalPlaces = 3;
+            numKp.Location = new Point(26, 525);
+            numKp.Margin = new Padding(6);
+            numKp.Name = "numKp";
+            numKp.Size = new Size(149, 39);
+            numKp.TabIndex = 16;
+            numKp.Value = new decimal(new int[] { 1000, 0, 0, 196608 });
+            numKp.ValueChanged += NumKp_ValueChanged;
+            // 
+            // lblKi
+            // 
+            lblKi.AutoSize = true;
+            lblKi.Location = new Point(221, 482);
+            lblKi.Margin = new Padding(6, 0, 6, 0);
+            lblKi.Name = "lblKi";
+            lblKi.Size = new Size(160, 32);
+            lblKi.TabIndex = 17;
+            lblKi.Text = "Integral (Ki/s):";
+            // 
+            // numKi
+            // 
+            numKi.DecimalPlaces = 3;
+            numKi.Location = new Point(221, 525);
+            numKi.Margin = new Padding(6);
+            numKi.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numKi.Name = "numKi";
+            numKi.Size = new Size(149, 39);
+            numKi.TabIndex = 18;
+            numKi.Value = new decimal(new int[] { 100, 0, 0, 196608 });
+            numKi.ValueChanged += NumKi_ValueChanged;
+            // 
+            // lblKd
+            // 
+            lblKd.AutoSize = true;
+            lblKd.Location = new Point(425, 482);
+            lblKd.Margin = new Padding(6, 0, 6, 0);
+            lblKd.Name = "lblKd";
+            lblKd.Size = new Size(195, 32);
+            lblKd.TabIndex = 19;
+            lblKd.Text = "Derivative (Kd*s):";
+            // 
+            // numKd
+            // 
+            numKd.DecimalPlaces = 3;
+            numKd.Location = new Point(425, 525);
+            numKd.Margin = new Padding(6);
+            numKd.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numKd.Name = "numKd";
+            numKd.Size = new Size(149, 39);
+            numKd.TabIndex = 20;
+            numKd.Value = new decimal(new int[] { 50, 0, 0, 196608 });
+            numKd.ValueChanged += NumKd_ValueChanged;
             // 
             // grpProcessParameters
             // 
-            this.grpProcessParameters = new GroupBox();
-            this.grpProcessParameters.Location = new Point(980, 380);
-            this.grpProcessParameters.Name = "grpProcessParameters";
-            this.grpProcessParameters.Size = new Size(600, 100);
-            this.grpProcessParameters.TabIndex = 3;
-            this.grpProcessParameters.TabStop = false;
-            this.grpProcessParameters.Text = "First Order Process Parameters";
-            this.grpProcessParameters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            
-            this.InitializeProcessControls();
-            
+            grpProcessParameters.Controls.Add(lblGain);
+            grpProcessParameters.Controls.Add(numProcessGain);
+            grpProcessParameters.Controls.Add(lblTau);
+            grpProcessParameters.Controls.Add(numTimeConstant);
+            grpProcessParameters.Controls.Add(lblTd);
+            grpProcessParameters.Controls.Add(numDeadTime);
+            grpProcessParameters.Controls.Add(lblDisturbance);
+            grpProcessParameters.Controls.Add(numDisturbance);
+            grpProcessParameters.Location = new Point(1764, 982);
+            grpProcessParameters.Margin = new Padding(6);
+            grpProcessParameters.Name = "grpProcessParameters";
+            grpProcessParameters.Padding = new Padding(6);
+            grpProcessParameters.Size = new Size(823, 213);
+            grpProcessParameters.TabIndex = 3;
+            grpProcessParameters.TabStop = false;
+            grpProcessParameters.Text = "First Order Process Model";
+            // 
+            // lblGain
+            // 
+            lblGain.AutoSize = true;
+            lblGain.Location = new Point(28, 53);
+            lblGain.Margin = new Padding(6, 0, 6, 0);
+            lblGain.Name = "lblGain";
+            lblGain.Size = new Size(67, 32);
+            lblGain.TabIndex = 0;
+            lblGain.Text = "Gain:";
+            // 
+            // numProcessGain
+            // 
+            numProcessGain.DecimalPlaces = 2;
+            numProcessGain.Location = new Point(28, 96);
+            numProcessGain.Margin = new Padding(6);
+            numProcessGain.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numProcessGain.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
+            numProcessGain.Name = "numProcessGain";
+            numProcessGain.Size = new Size(149, 39);
+            numProcessGain.TabIndex = 1;
+            numProcessGain.Value = new decimal(new int[] { 100, 0, 0, 131072 });
+            numProcessGain.ValueChanged += NumProcessGain_ValueChanged;
+            // 
+            // lblTau
+            // 
+            lblTau.AutoSize = true;
+            lblTau.Location = new Point(223, 53);
+            lblTau.Margin = new Padding(6, 0, 6, 0);
+            lblTau.Name = "lblTau";
+            lblTau.Size = new Size(86, 32);
+            lblTau.TabIndex = 2;
+            lblTau.Text = "Tau (s):";
+            // 
+            // numTimeConstant
+            // 
+            numTimeConstant.DecimalPlaces = 1;
+            numTimeConstant.Location = new Point(223, 96);
+            numTimeConstant.Margin = new Padding(6);
+            numTimeConstant.Minimum = new decimal(new int[] { 1, 0, 0, 65536 });
+            numTimeConstant.Name = "numTimeConstant";
+            numTimeConstant.Size = new Size(149, 39);
+            numTimeConstant.TabIndex = 3;
+            numTimeConstant.Value = new decimal(new int[] { 100, 0, 0, 65536 });
+            numTimeConstant.ValueChanged += NumTimeConstant_ValueChanged;
+            // 
+            // lblTd
+            // 
+            lblTd.AutoSize = true;
+            lblTd.Location = new Point(409, 53);
+            lblTd.Margin = new Padding(6, 0, 6, 0);
+            lblTd.Name = "lblTd";
+            lblTd.Size = new Size(75, 32);
+            lblTd.TabIndex = 4;
+            lblTd.Text = "Td (s):";
+            // 
+            // numDeadTime
+            // 
+            numDeadTime.DecimalPlaces = 1;
+            numDeadTime.Location = new Point(409, 96);
+            numDeadTime.Margin = new Padding(6);
+            numDeadTime.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            numDeadTime.Name = "numDeadTime";
+            numDeadTime.Size = new Size(149, 39);
+            numDeadTime.TabIndex = 5;
+            numDeadTime.Value = new decimal(new int[] { 10, 0, 0, 65536 });
+            numDeadTime.ValueChanged += NumDeadTime_ValueChanged;
+            // 
+            // lblDisturbance
+            // 
+            lblDisturbance.AutoSize = true;
+            lblDisturbance.Location = new Point(594, 53);
+            lblDisturbance.Margin = new Padding(6, 0, 6, 0);
+            lblDisturbance.Name = "lblDisturbance";
+            lblDisturbance.Size = new Size(146, 32);
+            lblDisturbance.TabIndex = 6;
+            lblDisturbance.Text = "Disturbance:";
+            // 
+            // numDisturbance
+            // 
+            numDisturbance.DecimalPlaces = 1;
+            numDisturbance.Location = new Point(594, 96);
+            numDisturbance.Margin = new Padding(6);
+            numDisturbance.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            numDisturbance.Minimum = new decimal(new int[] { 50, 0, 0, int.MinValue });
+            numDisturbance.Name = "numDisturbance";
+            numDisturbance.Size = new Size(149, 39);
+            numDisturbance.TabIndex = 7;
+            numDisturbance.ValueChanged += NumDisturbance_ValueChanged;
             // 
             // grpProcessStatus
             // 
-            this.grpProcessStatus = new GroupBox();
-            this.grpProcessStatus.Location = new Point(980, 495);
-            this.grpProcessStatus.Name = "grpProcessStatus";
-            this.grpProcessStatus.Size = new Size(600, 80);
-            this.grpProcessStatus.TabIndex = 4;
-            this.grpProcessStatus.TabStop = false;
-            this.grpProcessStatus.Text = "Process Status";
-            this.grpProcessStatus.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            
-            this.InitializeStatusControls();
-            
+            grpProcessStatus.Controls.Add(lblPVLabel);
+            grpProcessStatus.Controls.Add(lblProcessVariable);
+            grpProcessStatus.Controls.Add(lblMVLabel);
+            grpProcessStatus.Controls.Add(lblControllerOutput);
+            grpProcessStatus.Controls.Add(lblErrorLabel);
+            grpProcessStatus.Controls.Add(lblError);
+            grpProcessStatus.Location = new Point(1764, 1227);
+            grpProcessStatus.Margin = new Padding(6);
+            grpProcessStatus.Name = "grpProcessStatus";
+            grpProcessStatus.Padding = new Padding(6);
+            grpProcessStatus.Size = new Size(823, 171);
+            grpProcessStatus.TabIndex = 4;
+            grpProcessStatus.TabStop = false;
+            grpProcessStatus.Text = "Process Status";
             // 
-            // grpPlotControls - New Plot Controls Group
+            // lblPVLabel
             // 
-            this.grpPlotControls = new GroupBox();
-            this.grpPlotControls.Location = new Point(980, 590);
-            this.grpPlotControls.Name = "grpPlotControls";
-            this.grpPlotControls.Size = new Size(600, 100);
-            this.grpPlotControls.TabIndex = 5;
-            this.grpPlotControls.TabStop = false;
-            this.grpPlotControls.Text = "Plot Scale Controls";
-            this.grpPlotControls.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            
-            this.InitializePlotControls();
-            
-            // Add main controls to form
-            this.Controls.Add(this.plotView);
-            this.Controls.Add(this.grpSimulation);
-            this.Controls.Add(this.grpPidParameters);
-            this.Controls.Add(this.grpProcessParameters);
-            this.Controls.Add(this.grpProcessStatus);
-            this.Controls.Add(this.grpPlotControls);
-            
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
-
-        private void InitializePidControls()
-        {
-            // Auto/Manual buttons
-            this.btnAuto = new Button();
-            this.btnAuto.BackColor = Color.LightGreen;
-            this.btnAuto.Location = new Point(15, 25);
-            this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new Size(90, 35);
-            this.btnAuto.TabIndex = 0;
-            this.btnAuto.Text = "AUTO";
-            this.btnAuto.UseVisualStyleBackColor = false;
-            this.btnAuto.Click += new EventHandler(this.BtnAuto_Click);
-            
-            this.btnManual = new Button();
-            this.btnManual.BackColor = Color.LightGray;
-            this.btnManual.Location = new Point(115, 25);
-            this.btnManual.Name = "btnManual";
-            this.btnManual.Size = new Size(90, 35);
-            this.btnManual.TabIndex = 1;
-            this.btnManual.Text = "MANUAL";
-            this.btnManual.UseVisualStyleBackColor = false;
-            this.btnManual.Click += new EventHandler(this.BtnManual_Click);
-            
-            // PID Algorithm - Fixed width to prevent truncation
-            var lblAlgorithm = new Label();
-            lblAlgorithm.Location = new Point(220, 25);
-            lblAlgorithm.Name = "lblAlgorithm";
-            lblAlgorithm.Size = new Size(80, 23);
-            lblAlgorithm.Text = "Algorithm:";
-            
-            this.cmbPidAlgorithm = new ComboBox();
-            this.cmbPidAlgorithm.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbPidAlgorithm.Items.AddRange(new[] { "BasicPID", "I-PD", "PI-D" });
-            this.cmbPidAlgorithm.Location = new Point(220, 48);
-            this.cmbPidAlgorithm.Name = "cmbPidAlgorithm";
-            this.cmbPidAlgorithm.SelectedIndex = 0;
-            this.cmbPidAlgorithm.Size = new Size(100, 28);
-            this.cmbPidAlgorithm.TabIndex = 2;
-            this.cmbPidAlgorithm.SelectedIndexChanged += new EventHandler(this.CmbPidAlgorithm_SelectedIndexChanged);
-            
-            // Setpoint with limits
-            var lblSetpoint = new Label();
-            lblSetpoint.Location = new Point(15, 85);
-            lblSetpoint.Name = "lblSetpoint";
-            lblSetpoint.Size = new Size(70, 23);
-            lblSetpoint.Text = "Setpoint:";
-            
-            this.numSetpoint = new NumericUpDown();
-            this.numSetpoint.DecimalPlaces = 1;
-            this.numSetpoint.Location = new Point(15, 105);
-            this.numSetpoint.Maximum = 100M;
-            this.numSetpoint.Name = "numSetpoint";
-            this.numSetpoint.Size = new Size(70, 27);
-            this.numSetpoint.TabIndex = 3;
-            this.numSetpoint.Value = 50M;
-            this.numSetpoint.ValueChanged += new EventHandler(this.NumSetpoint_ValueChanged);
-            
-            // SP Range - Changed from "SP Limits" to "SP Range" for better fit
-            var lblSPRange = new Label();
-            lblSPRange.Location = new Point(95, 85);
-            lblSPRange.Name = "lblSPRange";
-            lblSPRange.Size = new Size(70, 23);
-            lblSPRange.Text = "SP Range:";
-            
-            var lblSPLo = new Label();
-            lblSPLo.Location = new Point(95, 108);
-            lblSPLo.Name = "lblSPLo";
-            lblSPLo.Size = new Size(25, 20);
-            lblSPLo.Text = "Lo:";
-            
-            this.numSetpointLow = new NumericUpDown();
-            this.numSetpointLow.DecimalPlaces = 1;
-            this.numSetpointLow.Location = new Point(120, 105);
-            this.numSetpointLow.Maximum = 100M;
-            this.numSetpointLow.Name = "numSetpointLow";
-            this.numSetpointLow.Size = new Size(60, 27);
-            this.numSetpointLow.TabIndex = 4;
-            this.numSetpointLow.Value = 0M;
-            this.numSetpointLow.ValueChanged += new EventHandler(this.NumSetpointLow_ValueChanged);
-            
-            var lblSPHi = new Label();
-            lblSPHi.Location = new Point(185, 108);
-            lblSPHi.Name = "lblSPHi";
-            lblSPHi.Size = new Size(25, 20);
-            lblSPHi.Text = "Hi:";
-            
-            this.numSetpointHigh = new NumericUpDown();
-            this.numSetpointHigh.DecimalPlaces = 1;
-            this.numSetpointHigh.Location = new Point(210, 105);
-            this.numSetpointHigh.Maximum = 100M;
-            this.numSetpointHigh.Name = "numSetpointHigh";
-            this.numSetpointHigh.Size = new Size(60, 27);
-            this.numSetpointHigh.TabIndex = 5;
-            this.numSetpointHigh.Value = 100M;
-            this.numSetpointHigh.ValueChanged += new EventHandler(this.NumSetpointHigh_ValueChanged);
-            
-            // Controller Output - Changed from "Manual Out:" to "Controller Output:"
-            var lblControllerOut = new Label();
-            lblControllerOut.Location = new Point(280, 85);
-            lblControllerOut.Name = "lblControllerOut";
-            lblControllerOut.Size = new Size(110, 23);
-            lblControllerOut.Text = "Controller Output:";
-            
-            this.numManualOutput = new NumericUpDown();
-            this.numManualOutput.DecimalPlaces = 1;
-            this.numManualOutput.Enabled = false;
-            this.numManualOutput.Location = new Point(280, 105);
-            this.numManualOutput.Maximum = 100M;
-            this.numManualOutput.Name = "numManualOutput";
-            this.numManualOutput.Size = new Size(70, 27);
-            this.numManualOutput.TabIndex = 6;
-            this.numManualOutput.Value = 50M;
-            this.numManualOutput.ValueChanged += new EventHandler(this.NumManualOutput_ValueChanged);
-            
-            // OP Range - Changed from "OP Limits" and adjusted positioning
-            var lblOPRange = new Label();
-            lblOPRange.Location = new Point(360, 85);
-            lblOPRange.Name = "lblOPRange";
-            lblOPRange.Size = new Size(70, 23);
-            lblOPRange.Text = "OP Range:";
-            
-            var lblOPLo = new Label();
-            lblOPLo.Location = new Point(360, 108);
-            lblOPLo.Name = "lblOPLo";
-            lblOPLo.Size = new Size(25, 20);
-            lblOPLo.Text = "Lo:";
-            
-            this.numOutputLow = new NumericUpDown();
-            this.numOutputLow.DecimalPlaces = 1;
-            this.numOutputLow.Location = new Point(385, 105);
-            this.numOutputLow.Maximum = 100M;
-            this.numOutputLow.Name = "numOutputLow";
-            this.numOutputLow.Size = new Size(60, 27);
-            this.numOutputLow.TabIndex = 7;
-            this.numOutputLow.Value = 0M;
-            this.numOutputLow.ValueChanged += new EventHandler(this.NumOutputLow_ValueChanged);
-            
-            var lblOPHi = new Label();
-            lblOPHi.Location = new Point(450, 108);
-            lblOPHi.Name = "lblOPHi";
-            lblOPHi.Size = new Size(25, 20);
-            lblOPHi.Text = "Hi:";
-            
-            this.numOutputHigh = new NumericUpDown();
-            this.numOutputHigh.DecimalPlaces = 1;
-            this.numOutputHigh.Location = new Point(475, 105);
-            this.numOutputHigh.Maximum = 100M;
-            this.numOutputHigh.Name = "numOutputHigh";
-            this.numOutputHigh.Size = new Size(60, 27);
-            this.numOutputHigh.TabIndex = 8;
-            this.numOutputHigh.Value = 100M;
-            this.numOutputHigh.ValueChanged += new EventHandler(this.NumOutputHigh_ValueChanged);
-            
-            // PID Gains - Adjusted spacing to prevent truncation
-            var lblKp = new Label();
-            lblKp.Location = new Point(15, 145);
-            lblKp.Name = "lblKp";
-            lblKp.Size = new Size(90, 23);
-            lblKp.Text = "Gain (Kp):";
-            
-            this.numKp = new NumericUpDown();
-            this.numKp.DecimalPlaces = 3;
-            this.numKp.Location = new Point(15, 165);
-            this.numKp.Maximum = 100M;
-            this.numKp.Name = "numKp";
-            this.numKp.Size = new Size(90, 27);
-            this.numKp.TabIndex = 9;
-            this.numKp.Value = 1M;
-            this.numKp.ValueChanged += new EventHandler(this.NumKp_ValueChanged);
-            
-            var lblKi = new Label();
-            lblKi.Location = new Point(120, 145);
-            lblKi.Name = "lblKi";
-            lblKi.Size = new Size(100, 23);
-            lblKi.Text = "Integral (Ki/s):";
-            
-            this.numKi = new NumericUpDown();
-            this.numKi.DecimalPlaces = 3;
-            this.numKi.Location = new Point(120, 165);
-            this.numKi.Maximum = 10M;
-            this.numKi.Name = "numKi";
-            this.numKi.Size = new Size(90, 27);
-            this.numKi.TabIndex = 10;
-            this.numKi.Value = 0.1M;
-            this.numKi.ValueChanged += new EventHandler(this.NumKi_ValueChanged);
-            
-            var lblKd = new Label();
-            lblKd.Location = new Point(230, 145);
-            lblKd.Name = "lblKd";
-            lblKd.Size = new Size(110, 23);
-            lblKd.Text = "Derivative (Kd*s):";
-            
-            this.numKd = new NumericUpDown();
-            this.numKd.DecimalPlaces = 3;
-            this.numKd.Location = new Point(230, 165);
-            this.numKd.Maximum = 10M;
-            this.numKd.Name = "numKd";
-            this.numKd.Size = new Size(90, 27);
-            this.numKd.TabIndex = 11;
-            this.numKd.Value = 0.05M;
-            this.numKd.ValueChanged += new EventHandler(this.NumKd_ValueChanged);
-            
-            // Setpoint Tracking checkbox - Adjusted positioning
-            this.chkSetpointTracking = new CheckBox();
-            this.chkSetpointTracking.Location = new Point(350, 165);
-            this.chkSetpointTracking.Name = "chkSetpointTracking";
-            this.chkSetpointTracking.Size = new Size(200, 24);
-            this.chkSetpointTracking.TabIndex = 12;
-            this.chkSetpointTracking.Text = "SP Tracks PV (Manual)";
-            this.chkSetpointTracking.UseVisualStyleBackColor = true;
-            
-            // Add all controls to PID Parameters group
-            this.grpPidParameters.Controls.Add(this.btnAuto);
-            this.grpPidParameters.Controls.Add(this.btnManual);
-            this.grpPidParameters.Controls.Add(lblAlgorithm);
-            this.grpPidParameters.Controls.Add(this.cmbPidAlgorithm);
-            this.grpPidParameters.Controls.Add(lblSetpoint);
-            this.grpPidParameters.Controls.Add(this.numSetpoint);
-            this.grpPidParameters.Controls.Add(lblSPRange);
-            this.grpPidParameters.Controls.Add(lblSPLo);
-            this.grpPidParameters.Controls.Add(this.numSetpointLow);
-            this.grpPidParameters.Controls.Add(lblSPHi);
-            this.grpPidParameters.Controls.Add(this.numSetpointHigh);
-            this.grpPidParameters.Controls.Add(lblControllerOut);
-            this.grpPidParameters.Controls.Add(this.numManualOutput);
-            this.grpPidParameters.Controls.Add(lblOPRange);
-            this.grpPidParameters.Controls.Add(lblOPLo);
-            this.grpPidParameters.Controls.Add(this.numOutputLow);
-            this.grpPidParameters.Controls.Add(lblOPHi);
-            this.grpPidParameters.Controls.Add(this.numOutputHigh);
-            this.grpPidParameters.Controls.Add(lblKp);
-            this.grpPidParameters.Controls.Add(this.numKp);
-            this.grpPidParameters.Controls.Add(lblKi);
-            this.grpPidParameters.Controls.Add(this.numKi);
-            this.grpPidParameters.Controls.Add(lblKd);
-            this.grpPidParameters.Controls.Add(this.numKd);
-            this.grpPidParameters.Controls.Add(this.chkSetpointTracking);
-        }
-
-        private void InitializeProcessControls()
-        {
-            // Process Gain
-            var lblGain = new Label();
-            lblGain.Location = new Point(15, 30);
-            lblGain.Name = "lblGain";
-            lblGain.Size = new Size(40, 23);
-            lblGain.Text = "Gain:";
-            
-            this.numProcessGain = new NumericUpDown();
-            this.numProcessGain.DecimalPlaces = 2;
-            this.numProcessGain.Location = new Point(15, 50);
-            this.numProcessGain.Maximum = 10M;
-            this.numProcessGain.Minimum = 0.1M;
-            this.numProcessGain.Name = "numProcessGain";
-            this.numProcessGain.Size = new Size(80, 27);
-            this.numProcessGain.TabIndex = 0;
-            this.numProcessGain.Value = 1M;
-            this.numProcessGain.ValueChanged += new EventHandler(this.NumProcessGain_ValueChanged);
-            
-            // Time Constant
-            var lblTau = new Label();
-            lblTau.Location = new Point(110, 30);
-            lblTau.Name = "lblTau";
-            lblTau.Size = new Size(60, 23);
-            lblTau.Text = "Tau (s):";
-            
-            this.numTimeConstant = new NumericUpDown();
-            this.numTimeConstant.DecimalPlaces = 1;
-            this.numTimeConstant.Location = new Point(110, 50);
-            this.numTimeConstant.Maximum = 100M;
-            this.numTimeConstant.Minimum = 0.1M;
-            this.numTimeConstant.Name = "numTimeConstant";
-            this.numTimeConstant.Size = new Size(80, 27);
-            this.numTimeConstant.TabIndex = 1;
-            this.numTimeConstant.Value = 10M;
-            this.numTimeConstant.ValueChanged += new EventHandler(this.NumTimeConstant_ValueChanged);
-            
-            // Dead Time
-            var lblTd = new Label();
-            lblTd.Location = new Point(205, 30);
-            lblTd.Name = "lblTd";
-            lblTd.Size = new Size(60, 23);
-            lblTd.Text = "Td (s):";
-            
-            this.numDeadTime = new NumericUpDown();
-            this.numDeadTime.DecimalPlaces = 1;
-            this.numDeadTime.Location = new Point(205, 50);
-            this.numDeadTime.Maximum = 50M;
-            this.numDeadTime.Name = "numDeadTime";
-            this.numDeadTime.Size = new Size(80, 27);
-            this.numDeadTime.TabIndex = 2;
-            this.numDeadTime.Value = 1M;
-            this.numDeadTime.ValueChanged += new EventHandler(this.NumDeadTime_ValueChanged);
-            
-            // Disturbance
-            var lblDist = new Label();
-            lblDist.Location = new Point(300, 30);
-            lblDist.Name = "lblDist";
-            lblDist.Size = new Size(80, 23);
-            lblDist.Text = "Disturbance:";
-            
-            this.numDisturbance = new NumericUpDown();
-            this.numDisturbance.DecimalPlaces = 1;
-            this.numDisturbance.Location = new Point(300, 50);
-            this.numDisturbance.Maximum = 50M;
-            this.numDisturbance.Minimum = -50M;
-            this.numDisturbance.Name = "numDisturbance";
-            this.numDisturbance.Size = new Size(80, 27);
-            this.numDisturbance.TabIndex = 3;
-            this.numDisturbance.ValueChanged += new EventHandler(this.NumDisturbance_ValueChanged);
-            
-            // Add controls to process parameters group
-            this.grpProcessParameters.Controls.Add(lblGain);
-            this.grpProcessParameters.Controls.Add(this.numProcessGain);
-            this.grpProcessParameters.Controls.Add(lblTau);
-            this.grpProcessParameters.Controls.Add(this.numTimeConstant);
-            this.grpProcessParameters.Controls.Add(lblTd);
-            this.grpProcessParameters.Controls.Add(this.numDeadTime);
-            this.grpProcessParameters.Controls.Add(lblDist);
-            this.grpProcessParameters.Controls.Add(this.numDisturbance);
-        }
-
-        private void InitializeStatusControls()
-        {
-            // Process Variable
-            var lblPVLabel = new Label();
-            lblPVLabel.Location = new Point(15, 25);
+            lblPVLabel.AutoSize = true;
+            lblPVLabel.Location = new Point(28, 53);
+            lblPVLabel.Margin = new Padding(6, 0, 6, 0);
             lblPVLabel.Name = "lblPVLabel";
-            lblPVLabel.Size = new Size(60, 23);
+            lblPVLabel.Size = new Size(88, 32);
+            lblPVLabel.TabIndex = 0;
             lblPVLabel.Text = "PV (%):";
-            
-            this.lblProcessVariable = new Label();
-            this.lblProcessVariable.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            this.lblProcessVariable.ForeColor = Color.Green;
-            this.lblProcessVariable.Location = new Point(15, 45);
-            this.lblProcessVariable.Name = "lblProcessVariable";
-            this.lblProcessVariable.Size = new Size(80, 30);
-            this.lblProcessVariable.Text = "50.00";
-            
-            // Controller Output
-            var lblMVLabel = new Label();
-            lblMVLabel.Location = new Point(120, 25);
+            // 
+            // lblProcessVariable
+            // 
+            lblProcessVariable.AutoSize = true;
+            lblProcessVariable.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            lblProcessVariable.ForeColor = Color.Green;
+            lblProcessVariable.Location = new Point(28, 96);
+            lblProcessVariable.Margin = new Padding(6, 0, 6, 0);
+            lblProcessVariable.Name = "lblProcessVariable";
+            lblProcessVariable.Size = new Size(103, 37);
+            lblProcessVariable.TabIndex = 1;
+            lblProcessVariable.Text = "50.00";
+            // 
+            // lblMVLabel
+            // 
+            lblMVLabel.AutoSize = true;
+            lblMVLabel.Location = new Point(279, 53);
+            lblMVLabel.Margin = new Padding(6, 0, 6, 0);
             lblMVLabel.Name = "lblMVLabel";
-            lblMVLabel.Size = new Size(60, 23);
+            lblMVLabel.Size = new Size(97, 32);
+            lblMVLabel.TabIndex = 2;
             lblMVLabel.Text = "MV (%):";
-            
-            this.lblControllerOutput = new Label();
-            this.lblControllerOutput.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            this.lblControllerOutput.ForeColor = Color.Red;
-            this.lblControllerOutput.Location = new Point(120, 45);
-            this.lblControllerOutput.Name = "lblControllerOutput";
-            this.lblControllerOutput.Size = new Size(80, 30);
-            this.lblControllerOutput.Text = "50.00";
-            
-            // Error
-            var lblErrorLabel = new Label();
-            lblErrorLabel.Location = new Point(220, 25);
+            // 
+            // lblControllerOutput
+            // 
+            lblControllerOutput.AutoSize = true;
+            lblControllerOutput.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            lblControllerOutput.ForeColor = Color.Red;
+            lblControllerOutput.Location = new Point(279, 96);
+            lblControllerOutput.Margin = new Padding(6, 0, 6, 0);
+            lblControllerOutput.Name = "lblControllerOutput";
+            lblControllerOutput.Size = new Size(103, 37);
+            lblControllerOutput.TabIndex = 3;
+            lblControllerOutput.Text = "50.00";
+            // 
+            // lblErrorLabel
+            // 
+            lblErrorLabel.AutoSize = true;
+            lblErrorLabel.Location = new Point(529, 53);
+            lblErrorLabel.Margin = new Padding(6, 0, 6, 0);
             lblErrorLabel.Name = "lblErrorLabel";
-            lblErrorLabel.Size = new Size(50, 23);
+            lblErrorLabel.Size = new Size(69, 32);
+            lblErrorLabel.TabIndex = 4;
             lblErrorLabel.Text = "Error:";
-            
-            this.lblError = new Label();
-            this.lblError.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            this.lblError.ForeColor = Color.Orange;
-            this.lblError.Location = new Point(220, 45);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new Size(80, 30);
-            this.lblError.Text = "0.00";
-            
-            // Add controls to process status group
-            this.grpProcessStatus.Controls.Add(lblPVLabel);
-            this.grpProcessStatus.Controls.Add(this.lblProcessVariable);
-            this.grpProcessStatus.Controls.Add(lblMVLabel);
-            this.grpProcessStatus.Controls.Add(this.lblControllerOutput);
-            this.grpProcessStatus.Controls.Add(lblErrorLabel);
-            this.grpProcessStatus.Controls.Add(this.lblError);
-        }
-
-        private void InitializePlotControls()
-        {
-            // X Axis Controls - Widened labels to prevent truncation
-            var lblXAxis = new Label();
-            lblXAxis.Location = new Point(15, 25);
+            // 
+            // lblError
+            // 
+            lblError.AutoSize = true;
+            lblError.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            lblError.ForeColor = Color.Orange;
+            lblError.Location = new Point(529, 96);
+            lblError.Margin = new Padding(6, 0, 6, 0);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(84, 37);
+            lblError.TabIndex = 5;
+            lblError.Text = "0.00";
+            // 
+            // grpPlotControls
+            // 
+            grpPlotControls.Controls.Add(lblXAxis);
+            grpPlotControls.Controls.Add(lblXMin);
+            grpPlotControls.Controls.Add(numXAxisMin);
+            grpPlotControls.Controls.Add(lblXMax);
+            grpPlotControls.Controls.Add(numXAxisMax);
+            grpPlotControls.Controls.Add(lblYAxis);
+            grpPlotControls.Controls.Add(lblYMin);
+            grpPlotControls.Controls.Add(numYAxisMin);
+            grpPlotControls.Controls.Add(lblYMax);
+            grpPlotControls.Controls.Add(numYAxisMax);
+            grpPlotControls.Controls.Add(chkAutoScale);
+            grpPlotControls.Location = new Point(22, 1227);
+            grpPlotControls.Margin = new Padding(6);
+            grpPlotControls.Name = "grpPlotControls";
+            grpPlotControls.Padding = new Padding(6);
+            grpPlotControls.Size = new Size(1709, 171);
+            grpPlotControls.TabIndex = 5;
+            grpPlotControls.TabStop = false;
+            grpPlotControls.Text = "Plot Scale Controls";
+            // 
+            // lblXAxis
+            // 
+            lblXAxis.AutoSize = true;
+            lblXAxis.Location = new Point(28, 53);
+            lblXAxis.Margin = new Padding(6, 0, 6, 0);
             lblXAxis.Name = "lblXAxis";
-            lblXAxis.Size = new Size(80, 23);
+            lblXAxis.Size = new Size(82, 32);
+            lblXAxis.TabIndex = 0;
             lblXAxis.Text = "X Axis:";
-            
-            var lblXMin = new Label();
-            lblXMin.Location = new Point(15, 50);
+            // 
+            // lblXMin
+            // 
+            lblXMin.AutoSize = true;
+            lblXMin.Location = new Point(28, 107);
+            lblXMin.Margin = new Padding(6, 0, 6, 0);
             lblXMin.Name = "lblXMin";
-            lblXMin.Size = new Size(35, 20);
+            lblXMin.Size = new Size(61, 32);
+            lblXMin.TabIndex = 1;
             lblXMin.Text = "Min:";
-            
-            this.numXAxisMin = new NumericUpDown();
-            this.numXAxisMin.DecimalPlaces = 0;
-            this.numXAxisMin.Location = new Point(50, 47);
-            this.numXAxisMin.Maximum = 1000M;
-            this.numXAxisMin.Name = "numXAxisMin";
-            this.numXAxisMin.Size = new Size(80, 27);
-            this.numXAxisMin.TabIndex = 0;
-            this.numXAxisMin.ValueChanged += new EventHandler(this.NumXAxisMin_ValueChanged);
-            
-            var lblXMax = new Label();
-            lblXMax.Location = new Point(140, 50);
+            // 
+            // numXAxisMin
+            // 
+            numXAxisMin.Location = new Point(93, 100);
+            numXAxisMin.Margin = new Padding(6);
+            numXAxisMin.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            numXAxisMin.Name = "numXAxisMin";
+            numXAxisMin.Size = new Size(149, 39);
+            numXAxisMin.TabIndex = 2;
+            numXAxisMin.ValueChanged += NumXAxisMin_ValueChanged;
+            // 
+            // lblXMax
+            // 
+            lblXMax.AutoSize = true;
+            lblXMax.Location = new Point(260, 107);
+            lblXMax.Margin = new Padding(6, 0, 6, 0);
             lblXMax.Name = "lblXMax";
-            lblXMax.Size = new Size(35, 20);
+            lblXMax.Size = new Size(64, 32);
+            lblXMax.TabIndex = 3;
             lblXMax.Text = "Max:";
-            
-            this.numXAxisMax = new NumericUpDown();
-            this.numXAxisMax.DecimalPlaces = 0;
-            this.numXAxisMax.Location = new Point(175, 47);
-            this.numXAxisMax.Maximum = 3600M;
-            this.numXAxisMax.Minimum = 10M;
-            this.numXAxisMax.Name = "numXAxisMax";
-            this.numXAxisMax.Size = new Size(80, 27);
-            this.numXAxisMax.TabIndex = 1;
-            this.numXAxisMax.Value = 300M;
-            this.numXAxisMax.ValueChanged += new EventHandler(this.NumXAxisMax_ValueChanged);
-            
-            // Y Axis Controls
-            var lblYAxis = new Label();
-            lblYAxis.Location = new Point(275, 25);
+            // 
+            // numXAxisMax
+            // 
+            numXAxisMax.Location = new Point(334, 100);
+            numXAxisMax.Margin = new Padding(6);
+            numXAxisMax.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
+            numXAxisMax.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numXAxisMax.Name = "numXAxisMax";
+            numXAxisMax.Size = new Size(149, 39);
+            numXAxisMax.TabIndex = 4;
+            numXAxisMax.Value = new decimal(new int[] { 300, 0, 0, 0 });
+            numXAxisMax.ValueChanged += NumXAxisMax_ValueChanged;
+            // 
+            // lblYAxis
+            // 
+            lblYAxis.AutoSize = true;
+            lblYAxis.Location = new Point(520, 53);
+            lblYAxis.Margin = new Padding(6, 0, 6, 0);
             lblYAxis.Name = "lblYAxis";
-            lblYAxis.Size = new Size(80, 23);
+            lblYAxis.Size = new Size(81, 32);
+            lblYAxis.TabIndex = 5;
             lblYAxis.Text = "Y Axis:";
-            
-            var lblYMin = new Label();
-            lblYMin.Location = new Point(275, 50);
+            // 
+            // lblYMin
+            // 
+            lblYMin.AutoSize = true;
+            lblYMin.Location = new Point(520, 107);
+            lblYMin.Margin = new Padding(6, 0, 6, 0);
             lblYMin.Name = "lblYMin";
-            lblYMin.Size = new Size(35, 20);
+            lblYMin.Size = new Size(61, 32);
+            lblYMin.TabIndex = 6;
             lblYMin.Text = "Min:";
-            
-            this.numYAxisMin = new NumericUpDown();
-            this.numYAxisMin.DecimalPlaces = 0;
-            this.numYAxisMin.Location = new Point(310, 47);
-            this.numYAxisMin.Maximum = 100M;
-            this.numYAxisMin.Minimum = -100M;
-            this.numYAxisMin.Name = "numYAxisMin";
-            this.numYAxisMin.Size = new Size(80, 27);
-            this.numYAxisMin.TabIndex = 2;
-            this.numYAxisMin.ValueChanged += new EventHandler(this.NumYAxisMin_ValueChanged);
-            
-            var lblYMax = new Label();
-            lblYMax.Location = new Point(400, 50);
+            // 
+            // numYAxisMin
+            // 
+            numYAxisMin.Location = new Point(585, 100);
+            numYAxisMin.Margin = new Padding(6);
+            numYAxisMin.Minimum = new decimal(new int[] { 100, 0, 0, int.MinValue });
+            numYAxisMin.Name = "numYAxisMin";
+            numYAxisMin.Size = new Size(149, 39);
+            numYAxisMin.TabIndex = 7;
+            numYAxisMin.ValueChanged += NumYAxisMin_ValueChanged;
+            // 
+            // lblYMax
+            // 
+            lblYMax.AutoSize = true;
+            lblYMax.Location = new Point(752, 107);
+            lblYMax.Margin = new Padding(6, 0, 6, 0);
             lblYMax.Name = "lblYMax";
-            lblYMax.Size = new Size(35, 20);
+            lblYMax.Size = new Size(64, 32);
+            lblYMax.TabIndex = 8;
             lblYMax.Text = "Max:";
-            
-            this.numYAxisMax = new NumericUpDown();
-            this.numYAxisMax.DecimalPlaces = 0;
-            this.numYAxisMax.Location = new Point(435, 47);
-            this.numYAxisMax.Maximum = 200M;
-            this.numYAxisMax.Minimum = 10M;
-            this.numYAxisMax.Name = "numYAxisMax";
-            this.numYAxisMax.Size = new Size(80, 27);
-            this.numYAxisMax.TabIndex = 3;
-            this.numYAxisMax.Value = 100M;
-            this.numYAxisMax.ValueChanged += new EventHandler(this.NumYAxisMax_ValueChanged);
-            
-            // Auto Scale checkbox
-            this.chkAutoScale = new CheckBox();
-            this.chkAutoScale.Checked = true;
-            this.chkAutoScale.Location = new Point(525, 48);
-            this.chkAutoScale.Name = "chkAutoScale";
-            this.chkAutoScale.Size = new Size(70, 24);
-            this.chkAutoScale.TabIndex = 4;
-            this.chkAutoScale.Text = "Auto";
-            this.chkAutoScale.UseVisualStyleBackColor = true;
-            
-            // Add controls to plot controls group
-            this.grpPlotControls.Controls.Add(lblXAxis);
-            this.grpPlotControls.Controls.Add(lblXMin);
-            this.grpPlotControls.Controls.Add(this.numXAxisMin);
-            this.grpPlotControls.Controls.Add(lblXMax);
-            this.grpPlotControls.Controls.Add(this.numXAxisMax);
-            this.grpPlotControls.Controls.Add(lblYAxis);
-            this.grpPlotControls.Controls.Add(lblYMin);
-            this.grpPlotControls.Controls.Add(this.numYAxisMin);
-            this.grpPlotControls.Controls.Add(lblYMax);
-            this.grpPlotControls.Controls.Add(this.numYAxisMax);
-            this.grpPlotControls.Controls.Add(this.chkAutoScale);
+            // 
+            // numYAxisMax
+            // 
+            numYAxisMax.Location = new Point(826, 100);
+            numYAxisMax.Margin = new Padding(6);
+            numYAxisMax.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            numYAxisMax.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numYAxisMax.Name = "numYAxisMax";
+            numYAxisMax.Size = new Size(149, 39);
+            numYAxisMax.TabIndex = 9;
+            numYAxisMax.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            numYAxisMax.ValueChanged += NumYAxisMax_ValueChanged;
+            // 
+            // chkAutoScale
+            // 
+            chkAutoScale.AutoSize = true;
+            chkAutoScale.Checked = true;
+            chkAutoScale.CheckState = CheckState.Checked;
+            chkAutoScale.Location = new Point(1003, 105);
+            chkAutoScale.Margin = new Padding(6);
+            chkAutoScale.Name = "chkAutoScale";
+            chkAutoScale.Size = new Size(180, 36);
+            chkAutoScale.TabIndex = 10;
+            chkAutoScale.Text = "Auto Scaling";
+            chkAutoScale.UseVisualStyleBackColor = true;
+            // 
+            // FirstOrderProcessWithPidForm
+            // 
+            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(2630, 1425);
+            Controls.Add(plotView);
+            Controls.Add(grpSimulation);
+            Controls.Add(grpPidParameters);
+            Controls.Add(grpProcessParameters);
+            Controls.Add(grpProcessStatus);
+            Controls.Add(grpPlotControls);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(6);
+            MaximizeBox = false;
+            Name = "FirstOrderProcessWithPidForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "First Order Process with PID - Professional Edition";
+            grpSimulation.ResumeLayout(false);
+            grpSimulation.PerformLayout();
+            ((ISupportInitialize)trkSimulationSpeed).EndInit();
+            grpPidParameters.ResumeLayout(false);
+            grpPidParameters.PerformLayout();
+            ((ISupportInitialize)numSetpoint).EndInit();
+            ((ISupportInitialize)numSetpointLow).EndInit();
+            ((ISupportInitialize)numSetpointHigh).EndInit();
+            ((ISupportInitialize)numManualOutput).EndInit();
+            ((ISupportInitialize)numOutputLow).EndInit();
+            ((ISupportInitialize)numOutputHigh).EndInit();
+            ((ISupportInitialize)numKp).EndInit();
+            ((ISupportInitialize)numKi).EndInit();
+            ((ISupportInitialize)numKd).EndInit();
+            grpProcessParameters.ResumeLayout(false);
+            grpProcessParameters.PerformLayout();
+            ((ISupportInitialize)numProcessGain).EndInit();
+            ((ISupportInitialize)numTimeConstant).EndInit();
+            ((ISupportInitialize)numDeadTime).EndInit();
+            ((ISupportInitialize)numDisturbance).EndInit();
+            grpProcessStatus.ResumeLayout(false);
+            grpProcessStatus.PerformLayout();
+            grpPlotControls.ResumeLayout(false);
+            grpPlotControls.PerformLayout();
+            ((ISupportInitialize)numXAxisMin).EndInit();
+            ((ISupportInitialize)numXAxisMax).EndInit();
+            ((ISupportInitialize)numYAxisMin).EndInit();
+            ((ISupportInitialize)numYAxisMax).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Label lblSpeedLabel;
+        private Label lblTimeLabel;
+        private Label lblAlgorithm;
+        private Label lblSetpoint;
+        private Label lblSPLimits;
+        private Label lblManualOutput;
+        private Label lblOPLimits;
+        private Label lblKp;
+        private Label lblKi;
+        private Label lblKd;
+        private Label lblGain;
+        private Label lblTau;
+        private Label lblTd;
+        private Label lblDisturbance;
+        private Label lblPVLabel;
+        private Label lblMVLabel;
+        private Label lblErrorLabel;
+        private Label lblXAxis;
+        private Label lblXMin;
+        private Label lblXMax;
+        private Label lblYAxis;
+        private Label lblYMin;
+        private Label lblYMax;
     }
 }

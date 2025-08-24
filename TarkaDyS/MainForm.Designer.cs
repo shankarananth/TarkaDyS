@@ -140,6 +140,7 @@ namespace TarkaDyS
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TarkaDyS - Process Dynamic Simulator";
+            WindowState = FormWindowState.Maximized;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             mainPanel.ResumeLayout(false);

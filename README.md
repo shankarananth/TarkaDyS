@@ -1,532 +1,293 @@
-# TarkaDyS - Professional Control System Simulation Platform
+﻿# TarkaDyS - Process Dynamic Simulator
 
-[![.NET 8](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
-[![Windows Forms](https://img.shields.io/badge/UI-Windows%20Forms-blue.svg)](https://docs.microsoft.com/en-us/dotnet/desktop/winforms/)
-[![OxyPlot](https://img.shields.io/badge/Plotting-OxyPlot-green.svg)](https://github.com/oxyplot/oxyplot)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**A Professional PID Control System Simulation Platform**
 
-**TarkaDyS** is an enterprise-grade **Process Dynamic Simulation Software** built with .NET 8 and Windows Forms, providing a comprehensive platform for simulating various process control systems with professional-grade PID controllers and real-time visualization.
-
-![TarkaDyS Interface](https://via.placeholder.com/800x600/1e1e1e/ffffff?text=TarkaDyS+Professional+Control+System+Simulation)
+*Author: Shankar Ananth Asokan*  
+*Version: 2.0*  
+*Date: 24-Aug-2025*
 
 ---
+
+## Overview
+
+TarkaDyS (Target Dynamic Systems) is a comprehensive PID control simulation platform designed for educational and professional use. It provides realistic process control scenarios with industrial-quality PID controllers featuring multiple algorithms and advanced capabilities.
 
 ## Key Features
 
-### Multi-Model Architecture
-- **Single Instance Management** - Prevents duplicate model forms
-- **Extensible Design** - Easy addition of new process models
-- **Professional Navigation** - Organized models menu with keyboard shortcuts
-- **Intelligent Form Management** - Automatic cleanup and resource management
+### Industrial-Quality PID Controller
+- **Three Algorithm Types:**
+  - **BasicPID**: Traditional PID (fast response, has kicks)
+  - **I-PD**: Integral on error, P&D on measurement (no kicks) 
+  - **PI-D**: P&I on error, D on measurement (no derivative kick)
+- **Velocity Form Implementation**: Inherently bumpless operation
+- **Conservative Default Tuning**: Kp=0.5, Ki=0.1, Kd=0.0
+- **Manual/Auto Modes**: Seamless bumpless transfers
+- **Output Limiting**: Configurable min/max constraints
 
-### Professional PID Controller
-- **3 Advanced Algorithms**: BasicPID, I-PD, PI-D
-- **Anti-Reset Windup Protection** - Critical for real control systems
-- **Bumpless Auto/Manual Transfer** - Seamless mode switching
-- **Real-Time Algorithm Switching** - Change PID type during simulation
-- **Configurable Limits** - SP/OP range validation with industrial relevance
+### Realistic Process Simulation
+- **First-Order Process Model**: Transfer function K×e^(-Td×s)/(Tau×s+1)
+- **Dead Time Support**: Configurable transport delays
+- **Dynamic Random Disturbance**: Realistic process noise
+- **Configurable Parameters**: Gain, time constant, dead time
 
-### Real-Time Visualization
-- **High-Performance Plotting** - 50Hz update rate with zero lag
-- **Customizable Plot Controls** - Configurable X/Y axis ranges
-- **Auto-Scaling** - Dynamic axis adjustment
-- **Multiple Data Series** - Setpoint, PV, MV, and Error tracking
+### Professional User Interface
+- **Real-Time Plotting**: Multi-variable trend display
+- **HD Screen Optimized**: 1600×768 layout
+- **Parameter Tuning**: Live adjustment of all parameters
+- **Simulation Controls**: Start/Stop/Reset functionality
+- **Algorithm Switching**: Real-time algorithm comparison
 
-### Industrial-Grade Features
-- **Steady-State Initialization** - Starts at 50% for bumpless operation
-- **Parameter Validation** - Real-time validation prevents invalid combinations
-- **Setpoint Tracking** - SP follows PV in Manual mode
-- **Disturbance Injection** - Test system robustness
+### Advanced Capabilities
+- **Splash Screen**: Professional startup with logo support
+- **Debug Output**: Comprehensive algorithm verification
+- **Single Instance Management**: Prevents duplicate forms
+- **Resource Management**: Automatic asset loading
 
 ---
 
-## System Architecture
+## Getting Started
 
-### Multi-Layered Design
+### System Requirements
+- Windows 10/11
+- .NET 8.0 Runtime
+- Display resolution: 1366×768 or higher
+- Visual Studio 2022 (for development)
 
-```
-+=========================================+
-|              UI Layer                   |
-+=========================================+
-|        Forms & Controls                 |
-|  +-------------+ +-------------------+  |
-|  | MainForm    | | FirstOrderProcess |  |
-|  | (MDI Parent)| | WithPidForm       |  |
-|  +-------------+ +-------------------+  |
-+=========================================+
-|           Control Layer                 |
-+=========================================+
-|        Controllers                      |
-|  +===================================+  |
-|  |        PidController              |  |
-|  |  � BasicPID Algorithm            |  |
-|  |  � I-PD Algorithm                |  |
-|  |  � PI-D Algorithm                |  |
-|  |  � Anti-windup Protection        |  |
-|  +===================================+  |
-+=========================================+
-|            Model Layer                  |
-+=========================================+
-|        Process Models                   |
-|  +===================================+  |
-|  |     FirstOrderProcess             |  |
-|  |  � Process Gain (Kp)             |  |
-|  |  � Time Constant (?)             |  |
-|  |  � Dead Time (?)                 |  |
-|  |  � Disturbance Handling          |  |
-|  +===================================+  |
-+=========================================+
-|           Data Layer                    |
-+=========================================+
-|     Real-time Data Management           |
-|  � Plot Data Collections               |
-|  � Parameter Storage                   |
-|  � State Management                    |
-+=========================================+
-```
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shankarananth/TarkaDyS
+   ```
+2. Open `TarkaDyS.sln` in Visual Studio 2022
+3. Build the solution (Ctrl+Shift+B)
+4. Run the application (F5)
 
-### File Structure
+### Adding Your Logo
+1. Create a `Resources` folder in the build output directory
+2. Place your logo as `TarkaDyS_Logo.png` (300×200 recommended)
+3. Optionally add `TarkaDyS_Icon.ico` for window icons
+4. The application will automatically detect and use these assets
+
+---
+
+## User Guide
+
+### Starting a Simulation
+1. **Launch TarkaDyS** - Splash screen appears for 3 seconds
+2. **Open Model** - Click menu to open "First Order Process with PID"
+3. **Configure Process** - Set gain, time constant, dead time
+4. **Tune PID** - Adjust Kp, Ki, Kd parameters
+5. **Start Simulation** - Click START button
+6. **Make Changes** - Adjust setpoint, parameters, or algorithm
+7. **Observe Response** - Watch real-time trends
+
+### PID Algorithm Comparison
+
+| Algorithm | Response Type | Proportional Kick | Derivative Kick | Best For |
+|-----------|---------------|------------------|------------------|----------|
+| **BasicPID** | Fast, aggressive | Present | Present | Infrequent setpoint changes |
+| **I-PD** | Smooth, gradual | Eliminated | Eliminated | Frequent setpoint changes |
+| **PI-D** | Compromise | Present | Eliminated | General purpose control |
+
+### Testing I-PD Kick Elimination
+1. Start with BasicPID algorithm
+2. Change setpoint 50% → 70% (observe immediate MV jump = kick)
+3. Switch to I-PD algorithm  
+4. Change setpoint 70% → 40% (observe smooth response = no kick)
+5. Check debug output for algorithm confirmation
+
+### Dynamic Disturbance Model
+- **Disturbance Factor**: 0-100% from UI
+- **Random Amplitude**: Factor × Random(0-1) each cycle
+- **Bipolar Effect**: Can add or subtract from PV
+- **Realistic Behavior**: Simulates industrial process noise
+
+**Examples:**
+- **5% Disturbance**: Light process variations
+- **20% Disturbance**: Moderate noise (challenging)
+- **50% Disturbance**: Heavy noise (extreme conditions)
+
+---
+
+## Architecture
+
+### Project Structure
 ```
 TarkaDyS/
-??? Controllers/
-?   ??? PidController.cs                    ? High-performance PID with 3 algorithms
-??? Models/
-?   ??? FirstOrderProcess.cs                ? Process model with dead time
-??? Forms/
-?   ??? FirstOrderProcessWithPidForm.cs     ? Professional simulation form
-?   ??? FirstOrderProcessWithPidForm.Designer.cs ? Enhanced UI design
-??? MainForm.cs                             ? MDI parent with model management
-??? MainForm.Designer.cs                    ? Models menu and welcome screen
-??? Program.cs                              ? Application entry point
-??? README.md                               ? This documentation
+├── Controllers/
+│   └── PidController.cs          # Velocity-form PID implementation
+├── Models/
+│   └── FirstOrderProcess.cs      # Process simulation with disturbance
+├── Forms/
+│   ├── MainForm.cs              # Application main window
+│   ├── SplashScreen.cs          # Startup splash screen
+│   └── FirstOrderProcessWithPidForm.cs  # Main simulation form
+├── Utilities/
+│   └── ResourceHelper.cs        # Asset loading utilities
+├── Resources/
+│   ├── README.md               # Resource folder instructions
+│   ├── TarkaDyS_Logo.png      # Application logo (user provided)
+│   └── TarkaDyS_Icon.ico      # Application icon (user provided)
+└── Documentation/              # Additional documentation files
 ```
+
+### Key Classes
+
+#### PidController.cs
+- Velocity-form PID implementation
+- Three algorithm types with kick elimination
+- Bumpless manual-to-auto transfers
+- Industrial-standard features
+
+#### FirstOrderProcess.cs
+- First-order plus dead time model
+- Dynamic random disturbance generation
+- Realistic industrial process behavior
+- Configurable parameters
+
+#### FirstOrderProcessWithPidForm.cs
+- Main simulation interface
+- Real-time plotting and controls
+- Parameter tuning capabilities
+- Professional HD-optimized layout
 
 ---
 
-## Data Flow Architecture
+## Development
 
-### Real-Time Control Loop
+### Technical Specifications
+- **Framework**: .NET 8.0 Windows Forms
+- **Language**: C# 12.0
+- **Plot Library**: OxyPlot.WindowsForms 2.1.2
+- **Architecture**: Model-View-Controller pattern
+- **Design Pattern**: Single instance management
 
-```mermaid
-graph TD
-    A[User Input<br/>Setpoint & Parameters] --> B[PID Controller]
-    B --> C[Controller Output<br/>MV]
-    C --> D[First Order Process<br/>G_s = Ke^-?s/?s+1]
-    D --> E[Process Variable<br/>PV]
-    E --> F[Real-Time Plot<br/>Visualization]
-    E --> B
-    G[Disturbance<br/>Input] --> D
-    H[Parameter Changes<br/>Kp, Ki, Kd, ?, ?] --> B
-    H --> D
-    I[Mode Selection<br/>Auto/Manual] --> B
-    
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#fff3e0
-    style D fill:#e8f5e8
-    style E fill:#fff8e1
-    style F fill:#fce4ec
-```
-
-### Data Processing Pipeline
-
-1. **Input Stage**
-   - User parameter changes (Kp, Ki, Kd)
-   - Setpoint modifications
-   - Process parameter updates (Gain, ?, ?)
-   - Disturbance injection
-
-2. **Control Stage** 
-   - PID algorithm execution (10Hz)
-   - Output limiting and anti-windup
-   - Auto/Manual mode handling
-   - Bumpless transfer logic
-
-3. **Process Stage**
-   - First-order differential equation solving
-   - Dead time implementation (circular buffer)
-   - Disturbance addition
-   - Output calculation
-
-4. **Visualization Stage**
-   - Data point collection (50Hz plotting)
-   - Real-time chart updates
-   - Plot scaling and optimization
-   - Performance monitoring
-
----
-
-## Control & Process Algorithms
-
-### 1. PID Controller Algorithms
-
-#### BasicPID (Traditional)
-```
-Output = Kp � e + Ki � ?e dt + Kd � (de/dt)
-
-Where:
-� e = Setpoint - ProcessVariable
-� Kp = Proportional Gain
-� Ki = Integral Gain  
-� Kd = Derivative Gain
-```
-
-**Use Case**: General purpose control applications
-
-#### I-PD (Integral on Error, PD on Measurement)
-```
-Output = Kp � (SP - PV) + Ki � ?e dt - Kd � (dPV/dt)
-
-Benefits:
-� Eliminates derivative kick on setpoint changes
-� Smoother response to setpoint steps
-� Better for servo applications
-```
-
-**Use Case**: Setpoint tracking with minimal overshoot
-
-#### PI-D (PI on Error, D on Measurement)
-```
-Output = Kp � e + Ki � ?e dt - Kd � (dPV/dt)
-
-Benefits:
-� Partial derivative kick elimination
-� Balanced performance
-� Good for temperature control
-```
-
-**Use Case**: Process control with moderate setpoint changes
-
-### 2. Anti-Reset Windup Protection
+### Velocity Form PID Implementation
+The PID controller uses velocity form algorithms for superior performance:
 
 ```csharp
-// Automatic integral clamping
-if (integralOutput > outputMax)
-    integralSum = outputMax / Math.Max(Ki, 1e-6);
-else if (integralOutput < outputMin)
-    integralSum = outputMin / Math.Max(Ki, 1e-6);
+// BasicPID Velocity Form
+ΔOutput = Kp×(e[n]-e[n-1]) + Ki×e[n]×Δt + Kd×(e[n]-2×e[n-1]+e[n-2])/Δt
+
+// I-PD Velocity Form (No Kicks)
+ΔOutput = Ki×e[n]×Δt + Kp×(PV[n-1]-PV[n]) + Kd×(PV[n-2]-2×PV[n-1]+PV[n])/Δt
+
+// PI-D Velocity Form  
+ΔOutput = Kp×(e[n]-e[n-1]) + Ki×e[n]×Δt + Kd×(PV[n-2]-2×PV[n-1]+PV[n])/Δt
 ```
 
-### 3. First Order Process Model
+### Benefits of Velocity Form
+- **Inherently Bumpless**: No integral tracking required
+- **Numerical Stability**: Better for discrete implementation  
+- **No Windup Issues**: Delta output prevents integration buildup
+- **Industrial Standard**: Used in modern DCS/PLC systems
 
-#### Transfer Function
-```
-G(s) = K � e^(-?s) / (?s + 1)
-
-Where:
-� K = Process Gain
-� ? = Dead Time (seconds)
-� ? = Time Constant (seconds)
-� s = Laplace variable
-```
-
-#### Differential Equation Implementation
-```csharp
-// Euler integration method
-double processDerivative = (input - output) / timeConstant;
-output += processDerivative * timeStep;
-
-// Dead time implementation using circular buffer
-deadTimeBuffer[currentIndex] = output;
-delayedOutput = deadTimeBuffer[(currentIndex - deadTimeSteps) % bufferSize];
-```
-
-### 4. Simulation Timing Architecture
-
-```csharp
-// Multi-rate simulation
-Timer Interval: 100ms (10Hz)  ? Control loop execution
-Plot Update: Every 5th cycle   ? 2Hz plot refresh for performance
-Simulation Speed: 0.1x to 5.0x ? Real-time scaling factor
-```
+### Adding New Models
+1. Create new process model in `Models/` folder
+2. Create corresponding form in `Forms/` folder
+3. Add menu item to `MainForm.cs`
+4. Implement single instance management
+5. Update documentation
 
 ---
 
-## Installation & Setup
+## Testing and Validation
 
-### Prerequisites
-- **.NET 8.0 SDK** or later
-- **Windows OS** (Windows 10/11 recommended)
-- **Visual Studio 2022** or **VS Code** with C# extension
+### PID Tuning Verification
+- **Default Values**: Kp=0.5, Ki=0.1, Kd=0.0 (conservative)
+- **Stability Test**: Step response should be smooth
+- **Disturbance Rejection**: Test with various noise levels
+- **Setpoint Tracking**: Verify smooth response
 
-### Quick Start
+### Algorithm Switching Test
+1. Start simulation in steady state
+2. Change algorithm via dropdown
+3. Verify debug output confirms switch
+4. Test setpoint response differences
+5. Confirm no output bumps during switch
 
-1. **Clone Repository**
-   ```bash
-   git clone https://github.com/shankarananth/TarkaDyS.git
-   cd TarkaDyS
-   ```
-
-2. **Restore Dependencies**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Build Solution**
-   ```bash
-   dotnet build
-   ```
-
-4. **Run Application**
-   ```bash
-   dotnet run --project TarkaDyS
-   ```
-
-### Dependencies
-- **OxyPlot.WindowsForms** (2.1.2+) - Real-time plotting
-- **System.Windows.Forms** - UI framework
-- **.NET 8.0** - Runtime framework
+### Manual/Auto Transfer Test
+1. Start in Auto mode
+2. Switch to Manual (output tracks)
+3. Change manual output value
+4. Switch back to Auto (bumpless)
+5. Verify no output discontinuity
 
 ---
 
-## Usage Guide
+## Troubleshooting
 
-### Quick Start Simulation
+### Common Issues
 
-1. **Launch Application**
-   - Main window opens with welcome screen
-   - Professional MDI interface
+**Logo Not Displaying**
+- Check `Resources/TarkaDyS_Logo.png` exists in build output
+- Verify file is copied to `bin/Debug/net8.0-windows/Resources/`
+- Review debug output for file loading messages
 
-2. **Open First Order Process Model**
-   - **Menu**: Models ? First Order Process with PID
-   - **Shortcut**: Ctrl+1
-   - Single instance management prevents duplicates
+**PID Not Responding**
+- Verify process parameters are reasonable (Tau > 0.1)
+- Check PID gains are not zero
+- Ensure simulation is running (START clicked)
+- Review integral limits and output limits
 
-3. **Configure PID Parameters**
-   - **Gain (Kp)**: Start with 1.0
-   - **Integral (Ki/s)**: Start with 0.1
-   - **Derivative (Kd*s)**: Start with 0.05
-   - **Algorithm**: BasicPID (default)
+**Form Layout Issues**
+- Application optimized for 1366×768 or higher
+- Check display scaling settings in Windows
+- Form uses fixed dialog style for consistent layout
 
-4. **Set Process Parameters**
-   - **Process Gain**: 1.0 (typical)
-   - **Time Constant (?)**: 10.0 seconds
-   - **Dead Time (?)**: 1.0 seconds
-   - **Disturbance**: 0% (initially)
+**Algorithm Switching Not Working**
+- Check debug output for algorithm change messages
+- Verify dropdown selection is changing
+- Reset controller after algorithm change
 
-5. **Start Simulation**
-   - Click **START** button
-   - Real-time plotting begins
-   - Adjust parameters during simulation
-
-### Advanced Features
-
-#### Algorithm Comparison
+### Debug Output
+The application provides comprehensive debug output:
 ```
-1. Set baseline parameters
-2. Run with BasicPID ? observe response
-3. Switch to I-PD ? compare setpoint tracking
-4. Switch to PI-D ? analyze disturbance rejection
+PID Algorithm changed: BasicPID → I_PD
+I-PD: ΔI=0.25 ΔP=-1.20 ΔD=0.00 = -0.95
+Disturbance applied: 10.0% × 0.743 × +1 = 0.074
 ```
-
-#### Tuning Methodology
-```
-1. Start with Kd = 0 (PI control)
-2. Increase Kp until oscillation
-3. Add Ki to eliminate steady-state error
-4. Add Kd to improve transient response
-5. Use I-PD for setpoint changes
-```
-
-#### Professional Tips
-- **Setpoint Changes**: Use I-PD algorithm
-- **Load Disturbances**: Use BasicPID or PI-D
-- **Noise Issues**: Reduce Kd gain
-- **Slow Response**: Increase Kp
-- **Overshoot**: Reduce Kp, add Kd
-
----
-
-## Performance Specifications
-
-### Real-Time Performance
-| Metric | Value | Notes |
-|--------|--------|--------|
-| **Control Loop Rate** | 10 Hz | 100ms timer interval |
-| **Plot Update Rate** | 2 Hz | Every 5th control cycle |
-| **UI Response Time** | < 10ms | Parameter changes |
-| **Memory Usage** | Stable | No memory leaks |
-| **CPU Usage** | < 5% | On modern systems |
-| **Simulation Accuracy** | �0.1% | Matches theory |
-
-### Simulation Capabilities
-- **Time Scaling**: 0.1x to 5.0x real-time
-- **Parameter Range**: Industry-standard values
-- **Plot Duration**: Up to 1 hour (3600 seconds)
-- **Data Points**: Unlimited with automatic cleanup
-- **Concurrent Models**: Multiple model types simultaneously
-
----
-
-## Educational Value
-
-### Control System Concepts
-- **PID Tuning Methods** - Hands-on experience
-- **Algorithm Comparison** - Side-by-side analysis
-- **Process Dynamics** - First-order system behavior
-- **Dead Time Effects** - Real-world process delays
-- **Disturbance Rejection** - System robustness testing
-
-### Industrial Relevance
-- **Professional UI** - Similar to industrial HMI
-- **Anti-Windup Protection** - Critical for real systems
-- **Bumpless Transfers** - Standard industry practice
-- **Parameter Limits** - Operating envelope protection
-- **Multiple Algorithms** - Different application needs
-
-### Academic Applications
-- **Control Engineering Courses** - Practical demonstrations
-- **Research Projects** - Algorithm development platform
-- **Student Projects** - Comprehensive simulation environment
-- **Industry Training** - Professional development tool
-
----
-
-## Extending the Platform
-
-### Adding New Process Models
-
-1. **Create Process Model Class**
-   ```csharp
-   public class SecondOrderProcess
-   {
-       public double ProcessGain { get; set; }
-       public double TimeConstant1 { get; set; }
-       public double TimeConstant2 { get; set; }
-       public double DampingRatio { get; set; }
-       
-       public void Update(double input, double timeStep) 
-       {
-           // Second-order differential equation implementation
-       }
-   }
-   ```
-
-2. **Create UI Form**
-   ```csharp
-   public partial class SecondOrderProcessWithPidForm : Form
-   {
-       private readonly PidController _pidController;
-       private readonly SecondOrderProcess _process;
-       // UI implementation
-   }
-   ```
-
-3. **Register in Main Menu**
-   ```csharp
-   private void MenuSecondOrderPid_Click(object sender, EventArgs e)
-   {
-       OpenSingleInstanceForm<SecondOrderProcessWithPidForm>(
-           "Second Order Process with PID");
-   }
-   ```
-
-### Model Types Ready for Implementation
-- ? **First Order Process with PID** - *Implemented*
-- ?? **Second Order Process with PID** - *Framework ready*
-- ?? **Tank Level Control with PID** - *Framework ready*
-- ??? **Temperature Control with PID** - *Framework ready*
-- ?? **Cascade Control Systems** - *Framework ready*
-- ?? **Feedforward Control Systems** - *Framework ready*
-
----
-
-## Technical Documentation
-
-### Code Quality
-- **Comprehensive Comments** - Self-documenting code
-- **Error Handling** - Robust exception management  
-- **Thread Safety** - Proper synchronization
-- **Resource Management** - Automatic cleanup
-- **Performance Optimization** - Efficient algorithms
-
-### Testing Coverage
-- **Build Verification** - Zero compilation errors
-- **Functional Testing** - All features validated
-- **Performance Testing** - Extended run stability
-- **UI Testing** - Responsive interface
-- **Memory Testing** - No memory leaks
-
-### Industry Standards
-- **Naming Conventions** - Microsoft C# guidelines
-- **Code Structure** - SOLID principles
-- **Documentation** - XML comments throughout
-- **Version Control** - Git best practices
 
 ---
 
 ## Contributing
 
-### Development Workflow
+### Development Guidelines
+1. Follow existing code style and patterns
+2. Add comprehensive XML documentation
+3. Include debug output for verification
+4. Test on different screen resolutions
+5. Update README.md for new features
+
+### Submission Process
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/new-model`)
+2. Create feature branch
 3. Implement changes with tests
 4. Update documentation
-5. Submit pull request
-
-### Contribution Areas
-- **New Process Models** - Extend simulation capabilities
-- **Control Algorithms** - Advanced PID variants
-- **UI Enhancements** - Improved user experience
-- **Performance Optimizations** - Faster simulation
-- **Documentation** - Better user guides
+5. Submit pull request with detailed description
 
 ---
 
 ## License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Academic Use
-Free for educational institutions and research purposes.
+---
 
-### Commercial Use 
-Permitted under MIT license terms with attribution.
+## Support
+
+- **Author**: Shankar Ananth Asokan
+- **Email**: [Your contact email]
+- **GitHub**: https://github.com/shankarananth/TarkaDyS
+- **Issues**: Report bugs via GitHub Issues
 
 ---
 
 ## Acknowledgments
 
-- **Original VB PID Simulator**: [shankarananth/VB_PID_Simulator](https://github.com/shankarananth/VB_PID_Simulator)
-- **OxyPlot Library**: High-performance plotting framework
-- **Microsoft .NET Team**: Excellent development platform
-- **Control Systems Community**: Inspiration and feedback
+- OxyPlot team for excellent plotting library
+- Industrial control engineers for algorithm insights
 
 ---
 
-## Support & Contact
-
-- **GitHub Issues**: [Report bugs or request features](https://github.com/shankarananth/TarkaDyS/issues)
-- **Discussions**: [Community discussions](https://github.com/shankarananth/TarkaDyS/discussions)
-- **Email**: [shankar.ananth.asokan@example.com](mailto:shankar.ananth.asokan@example.com)
-
----
-
-## Project Status
-
-**Current Version**: 2.0.0 (Professional Edition)  
-**Status**: ? **Production Ready**  
-**Last Updated**: August 2025
-
-### Recent Updates
-- ? Multi-model architecture implementation
-- ? Professional PID controller with 3 algorithms
-- ? Enhanced UI with parameter validation
-- ? Real-time plot controls and customization
-- ? Single instance management system
-- ? Comprehensive documentation and user guides
-
-### Upcoming Features
-- ?? Second-order process models
-- ?? Tank level control simulation
-- ??? Temperature control processes
-- ?? Cascade control systems
-- ?? Data export and analysis tools
-
----
-
-**? Star this repository if you find it useful for your control systems education or research!**
-
----
-
-*Built with ?? for the Control Systems Engineering Community*
+*TarkaDyS - Bringing professional process control simulation to education and industry*
