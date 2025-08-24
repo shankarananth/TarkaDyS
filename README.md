@@ -10,7 +10,7 @@
 
 ## Overview
 
-In Sanskrit, the word "tarka" (तर्क) means reasoning. TarkaDyS (**Tarka** **Dy**namic **S**ystems) is a comprehensive PID control simulation platform designed for educational and professional use. It provides realistic process control scenarios with industrial-quality PID controllers featuring multiple algorithms and advanced capabilities.
+In Sanskrit, the word "tarka" (तर्क) means reasoning. TarkaDyS (**Tarka** **Dy**namic **S**imulator) is a comprehensive Process Dynamics Simulation with control designed for educational use. It provides realistic process control scenarios with industrial-quality PID controllers featuring multiple algorithms and advanced capabilities.
 
 ## Key Features
 
@@ -20,9 +20,8 @@ In Sanskrit, the word "tarka" (तर्क) means reasoning. TarkaDyS (**Tarka*
   - **I-PD**: Integral on error, P&D on measurement (no kicks) 
   - **PI-D**: P&I on error, D on measurement (no derivative kick)
 - **Velocity Form Implementation**: Inherently bumpless operation
-- **Conservative Default Tuning**: Kp=0.5, Ki=0.1, Kd=0.0
 - **Manual/Auto Modes**: Seamless bumpless transfers
-- **Output Limiting**: Configurable min/max constraints
+- **Output Limiting**: Configurable min/max limits (Also used for AntiReset Windup
 
 ### First Order Tunable Process Model
 - **First-Order Process Model**: Transfer function K×e^(-Td×s)/(Tau×s+1)
