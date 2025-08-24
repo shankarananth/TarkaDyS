@@ -216,6 +216,7 @@ jobs:
         path: artifacts/
 
     - name: Create Development Release Packages
+      id: create_dev_packages
       run: |
         $version = "${{ needs.build-and-test.outputs.version }}"
         $frameworkZip = "TarkaDyS-v$version-Framework-Dependent.zip"
@@ -314,14 +315,6 @@ jobs:
           - Includes .NET 8.0 Runtime - ready to run immediately
           - Perfect for isolated environments or offline systems
           
-          ### Features in This Build
-          - ??? Industrial PID controller with 3 algorithms (BasicPID, I-PD, PI-D)
-          - ?? Velocity-form implementation (bumpless operation)
-          - ?? Dynamic random disturbance simulation  
-          - ?? Real-time plotting with parameter tuning
-          - ?? Professional HD-optimized interface
-          - ?? Custom logo/icon support
-          
           ### Installation
           1. Download your preferred package below
           2. Extract to any folder (e.g., `C:\Program Files\TarkaDyS`)
@@ -334,12 +327,12 @@ jobs:
           
           **Build Info:** ${{ github.sha }} from ${{ github.ref_name }}
         files: |
-          TarkaDyS-v${{ needs.build-and-test.outputs.version }}-Framework-Dependent.zip
-          TarkaDyS-v${{ needs.build-and-test.outputs.version }}-Self-Contained.zip
+          ${{ steps.create_dev_packages.outputs.framework_zip }}
+          ${{ steps.create_dev_packages.outputs.selfcontained_zip }}
         prerelease: true
         make_latest: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Official Release (triggered by GitHub Release)
   package-release:
@@ -369,6 +362,7 @@ jobs:
         Write-Host "Official Release Version: $version"
 
     - name: Create Official Release Packages
+      id: create_release_packages
       run: |
         $version = "${{ steps.get_version.outputs.version }}"
         $frameworkZip = "TarkaDyS-v$version-Framework-Dependent-Official.zip"
@@ -455,10 +449,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          TarkaDyS-v${{ steps.get_version.outputs.version }}-Framework-Dependent-Official.zip
-          TarkaDyS-v${{ steps.get_version.outputs.version }}-Self-Contained-Official.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ${{ steps.create_release_packages.outputs.framework_zip }}
+          ${{ steps.create_release_packages.outputs.selfcontained_zip }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Code Quality Analysis
   code-analysis:
